@@ -1,0 +1,3 @@
+syntax: glob
+AnyGameEngineEditor/bin
+AnyGameEngineEditor/obj
