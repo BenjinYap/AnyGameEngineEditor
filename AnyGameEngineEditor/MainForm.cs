@@ -10,15 +10,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AnyGameEngine;
 using AnyGameEngine.LogicItems;
+using AnyGameEngineEditor.MainSections.General;
 
 namespace AnyGameEngineEditor {
-	public partial class MainWindow : Form {
+	public partial class MainForm : Form {
 		public Game Game;
 
-		public MainWindow () {
+		private List <MainSection> mainSections = new List<MainSection> ();
+		private GeneralSection generalSection;
+
+		public MainForm () {
 			InitializeComponent ();
-			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
+			Instance = this;
 			
+			generalSection = new GeneralSection (this);
+			generalSection.MoveToForm ();
+			mainSections.Add (generalSection);
+
+			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
 		}
 
 		private void onOpenGameClick (object sender, EventArgs e) {
@@ -43,11 +52,14 @@ namespace AnyGameEngineEditor {
 					}
 				}*/
 
+				mainSections.ForEach (section => section.Refresh ());
 				return true;
 			} else {
 				return false;
 			}
 		}
+
+		public static Form Instance;
 	}
 
 }

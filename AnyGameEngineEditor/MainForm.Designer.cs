@@ -1,5 +1,5 @@
 ﻿namespace AnyGameEngineEditor {
-	partial class MainWindow {
+	partial class MainForm {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
