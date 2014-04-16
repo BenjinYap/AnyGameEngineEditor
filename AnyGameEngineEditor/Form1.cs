@@ -13,10 +13,10 @@ namespace AnyGameEngineEditor {
 	public partial class Form1 : Form {
 		public Form1 () {
 			InitializeComponent ();
-
-			textBox1.LostFocus += (a, b) => {
-				textBox1.Focus ();
-			};
+			textBox1.Dock = DockStyle.Fill;
+			errorProvider1.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+			errorProvider1.SetError (textBox1, "A");
+			
 		}
 	}
 }

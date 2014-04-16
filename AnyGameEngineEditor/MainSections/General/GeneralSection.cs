@@ -6,18 +6,21 @@ namespace AnyGameEngineEditor.MainSections.General {
 		private DataTable table = new DataTable ();
 		private TextBox name = new TextBox ();
 		private TextBox author = new TextBox ();
-
-		public GeneralSection (MainForm mainForm):base (mainForm) {
+		private TextBox description = new TextBox ();
+		
+		public GeneralSection () {
 			this.Title = "General";
 			this.SharedControls.Add (table);
 
 			table.AddRow ("Name", "The name of the game.", name);
 			table.AddRow ("Author", "The creator of the game.", author);
+			table.AddRow ("Description", "A short summary of the game.", description);
 		}
 
 		public override void Refresh () {
-			name.Text = this.MainForm.Game.Name;
-			author.Text = this.MainForm.Game.Author;
+			name.Text = MainForm.Game.Name;
+			author.Text = MainForm.Game.Author;
+			description.Text = MainForm.Game.Description;
 		}
 	}
 }

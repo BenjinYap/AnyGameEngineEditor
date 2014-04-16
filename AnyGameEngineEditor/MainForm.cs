@@ -14,16 +14,16 @@ using AnyGameEngineEditor.MainSections.General;
 
 namespace AnyGameEngineEditor {
 	public partial class MainForm : Form {
-		public Game Game;
-
 		private List <MainSection> mainSections = new List<MainSection> ();
 		private GeneralSection generalSection;
 
 		public MainForm () {
 			InitializeComponent ();
 			Instance = this;
-			
-			generalSection = new GeneralSection (this);
+			Error = new ErrorProvider (this);
+			Error.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+
+			generalSection = new GeneralSection ();
 			generalSection.MoveToForm ();
 			mainSections.Add (generalSection);
 
@@ -60,6 +60,8 @@ namespace AnyGameEngineEditor {
 		}
 
 		public static Form Instance;
+		public static Game Game;
+		public static ErrorProvider Error;
 	}
 
 }
