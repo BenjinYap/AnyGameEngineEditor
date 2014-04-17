@@ -31,21 +31,19 @@ namespace AnyGameEngineEditor {
 			generalSection.MoveToForm ();
 			mainSections.Add (generalSection);
 
-			generalSection2 = new GeneralSection ();
-			generalSection2.MoveToForm ();
-			mainSections.Add (generalSection2);
+			//generalSection2 = new GeneralSection ();
+			//generalSection2.MoveToForm ();
+			//mainSections.Add (generalSection2);
 
 			mainSections.ForEach (section => {
-				Padding padding = section.Panel.Margin;
-				padding.Top += mainMenuStrip.Height;
-				//section.Panel.Padding = padding;
+				section.Form.FormDragStart += onSectionFormDragStart;
+				section.Form.FormDragEnd += onSectionFormDragEnd;
 			});
 
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
-			DockMainSection (generalSection);
-
+			//DockMainSection (generalSection);
 		}
-
+		
 		public void PushUndo (Action action) {
 			undos.Push (action);
 		}
@@ -81,6 +79,14 @@ namespace AnyGameEngineEditor {
 
 		private void onExitClick (object sender, EventArgs e) {
 			Application.Exit ();
+		}
+
+		private void onSectionFormDragStart (object obj, EventArgs e) {
+			
+		}
+
+		private void onSectionFormDragEnd (object obj, EventArgs e) {
+			
 		}
 
 		private bool LoadGame (string path) {

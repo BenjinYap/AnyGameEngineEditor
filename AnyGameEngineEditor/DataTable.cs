@@ -91,7 +91,9 @@ namespace AnyGameEngineEditor {
 		}
 
 		private void onCellMouseLeave (object obj, EventArgs e) {
-			selectedRow = -1;
+			if (stickySelect == false) {
+				selectedRow = -1;
+			}
 		}
 
 		private void onControlGotFocus (object obj, EventArgs e) {
@@ -121,7 +123,7 @@ namespace AnyGameEngineEditor {
 				SetChangeTracking (textBox, true);
 				textBox.Focus ();
 				textBox.SelectionStart = undoValue.Length;
-			});
+			});Debug.WriteLine (stickySelect + " " + selectedRow);
 			
 			row.ValueChangedAction ();
 			MainForm.Instance.RefreshSections ();
