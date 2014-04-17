@@ -22,6 +22,12 @@ namespace AnyGameEngineEditor {
 		private SectionForm draggingSectionForm;
 		private bool docked = false;
 
+		private Panel [] dockPanels;
+		private Panel dockPanelTop = new Panel ();
+		private Panel dockPanelBottom = new Panel ();
+		private Panel dockPanelLeft = new Panel ();
+		private Panel dockPanelRight = new Panel ();
+		
 		public MainForm () {
 			InitializeComponent ();
 			Instance = this;
@@ -40,6 +46,16 @@ namespace AnyGameEngineEditor {
 				section.Form.FormDragStart += onSectionFormDragStart;
 				section.Form.FormDragEnd += onSectionFormDragEnd;
 			});
+
+			dockPanels = new Panel [] {dockPanelTop, dockPanelBottom, dockPanelLeft, dockPanelRight};
+			
+			foreach (Panel panel in dockPanels) {
+				panel.BackColor = Color.FromArgb (128, Color.Red);
+				panel.Size = new Size (50, 50);
+				panel.Hide ();
+				this.Controls.Add (panel);
+				panel.BringToFront ();
+			}
 
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
 			//DockMainSection (generalSection);
@@ -91,10 +107,22 @@ namespace AnyGameEngineEditor {
 		private void onSectionFormDragEnd (object obj, EventArgs e) {
 			draggingSectionForm.Opacity = 1;
 			draggingSectionForm.LocationChanged -= onDraggingSectionFormLocationChanged;
+
+			if (docked == false) {
+				if (this.ClientRectangle.Contains (this.PointToClient (Cursor.Position))) {
+					DockMainSection (mainSections.Find (section => section.Form == draggingSectionForm));
+				}
+			}
 		}
 
 		private void onDraggingSectionFormLocationChanged (object obj, EventArgs e) {
-
+			if (docked == false) {
+				if (this.ClientRectangle.Contains (this.PointToClient (Cursor.Position))) {
+					dockPanelTop.Location = new Point (table.Location.X, mainMenuStrip.Height);
+					dockPanelTop.Size = new Size (table.Width, table.Height - mainMenuStrip.Height);
+					dockPanelTop.Show ();
+				}
+			}
 		}
 
 		private bool LoadGame (string path) {
@@ -109,6 +137,10 @@ namespace AnyGameEngineEditor {
 		}
 
 		private void DockMainSection (MainSection section) {
+			foreach (Panel panel in dockPanels) {
+				panel.Hide ();
+			}
+
 			section.MoveToPanel ();
 
 			if (docked == false) {
