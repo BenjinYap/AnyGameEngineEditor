@@ -53,6 +53,7 @@ namespace AnyGameEngineEditor {
 			this.LocationChanged -= onLocationChanged;
 
 			if (dragEnded == false && FormDragEnd!= null) {
+				dragStarted = false;
 				dragEnded = true;
 				FormDragEnd (this, EventArgs.Empty);
 			}

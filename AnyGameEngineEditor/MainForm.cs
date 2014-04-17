@@ -19,6 +19,7 @@ namespace AnyGameEngineEditor {
 		private GeneralSection generalSection;
 		private GeneralSection generalSection2;
 
+		private SectionForm draggingSectionForm;
 		private bool docked = false;
 
 		public MainForm () {
@@ -82,11 +83,18 @@ namespace AnyGameEngineEditor {
 		}
 
 		private void onSectionFormDragStart (object obj, EventArgs e) {
-			
+			draggingSectionForm = (SectionForm) obj;
+			draggingSectionForm.Opacity = 0.5;
+			draggingSectionForm.LocationChanged += onDraggingSectionFormLocationChanged;
 		}
 
 		private void onSectionFormDragEnd (object obj, EventArgs e) {
-			
+			draggingSectionForm.Opacity = 1;
+			draggingSectionForm.LocationChanged -= onDraggingSectionFormLocationChanged;
+		}
+
+		private void onDraggingSectionFormLocationChanged (object obj, EventArgs e) {
+
 		}
 
 		private bool LoadGame (string path) {
