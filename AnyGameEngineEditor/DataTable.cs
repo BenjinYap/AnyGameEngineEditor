@@ -122,8 +122,9 @@ namespace AnyGameEngineEditor {
 				textBox.Focus ();
 				textBox.SelectionStart = undoValue.Length;
 			});
-
+			
 			row.ValueChangedAction ();
+			MainForm.Instance.RefreshSections ();
 			originalValue = ((TextBox) obj).Text;
 		}
 

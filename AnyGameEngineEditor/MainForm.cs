@@ -17,6 +17,7 @@ namespace AnyGameEngineEditor {
 	public partial class MainForm : Form {
 		private List <MainSection> mainSections = new List<MainSection> ();
 		private GeneralSection generalSection;
+		private GeneralSection generalSection2;
 
 		private bool docked = false;
 
@@ -29,6 +30,10 @@ namespace AnyGameEngineEditor {
 			generalSection = new GeneralSection ();
 			generalSection.MoveToForm ();
 			mainSections.Add (generalSection);
+
+			generalSection2 = new GeneralSection ();
+			generalSection2.MoveToForm ();
+			mainSections.Add (generalSection2);
 
 			mainSections.ForEach (section => {
 				Padding padding = section.Panel.Margin;
@@ -49,13 +54,18 @@ namespace AnyGameEngineEditor {
 			if (undos.Count > 0) {
 				Action action = undos.Pop ();
 				action ();
-				mainSections.ForEach (section => section.Refresh ());
+				RefreshSections ();
 			}
+		}
+
+		public void RefreshSections () {
+			mainSections.ForEach (section => section.Refresh ());
 		}
 
 		protected override bool ProcessCmdKey (ref Message msg, Keys keyData) {
 			if (keyData == (Keys.Control | Keys.Z)) {
-				//return true;
+				MainForm.Instance.Undo ();
+				return true;
 			}
 
 			return base.ProcessCmdKey (ref msg, keyData);
@@ -77,13 +87,7 @@ namespace AnyGameEngineEditor {
 			Game = new Game ();
 			
 			if (Game.Load (path)) {
-				/*foreach (TabPage page in this.mainTabControl.TabPages) {
-					if (page.Controls.Count > 0) {
-						((MainTabPanel) page.Controls [0]).UpdatePanel ();
-					}
-				}*/
-
-				mainSections.ForEach (section => section.Refresh ());
+				RefreshSections ();
 				return true;
 			} else {
 				return false;
@@ -92,7 +96,13 @@ namespace AnyGameEngineEditor {
 
 		private void DockMainSection (MainSection section) {
 			section.MoveToPanel ();
-			table.Controls.Add (section.Panel);
+
+			if (docked == false) {
+				docked = true;
+				table.Controls.Add (section.Panel);
+			} else {
+
+			}
 		}
 
 		public static MainForm Instance;
