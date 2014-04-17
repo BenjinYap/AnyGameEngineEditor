@@ -12,6 +12,8 @@ namespace AnyGameEngineEditor {
 		private int selectedRow = -1;
 		private bool stickySelect = false;
 
+		private object originalValue = null;
+		
 		public DataTable () {
 			this.Dock = DockStyle.Fill;
 			this.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -32,7 +34,7 @@ namespace AnyGameEngineEditor {
 			descriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 		}
 
-		public void AddRow (string name, string description, Control control) {
+		public void AddTextBoxRow (string name, string description, TextBox textBox, Action valueChangedAction) {
 			Label label = new Label ();
 			label.Text = name;
 			label.Dock = DockStyle.Fill;
@@ -40,24 +42,38 @@ namespace AnyGameEngineEditor {
 			label.MouseLeave += onCellMouseLeave;
 			label.BackColor = Color.Transparent;
 
-			control.Dock = DockStyle.Fill;
-			Padding margin = control.Margin;
-			margin.Right += 19;
-			control.Margin = margin;
-			control.MouseEnter += onCellMouseEnter;
-			control.MouseLeave += onCellMouseLeave;
-			control.GotFocus += onControlGotFocus;
-			control.LostFocus += onControlLostFocus;
-			MainForm.Error.SetIconPadding (control, 3);
+			PrepareControl (textBox);
+			SetChangeTracking (textBox, true);
 
 			table.Controls.Add (label);
-			table.Controls.Add (control);
+			table.Controls.Add (textBox);
 
 			TableRow row = new TableRow ();
 			row.Label = label;
 			row.Description = description;
-			row.Control = control;
+			row.Control = textBox;
+			row.ValueChangedAction = valueChangedAction;
 			rows.Add (row);
+		}
+
+		public void SetChangeTracking (Control control, bool enabled) {
+			if (enabled) {
+				if (control is TextBox) {
+					TextBox textBox = (TextBox) control;
+					textBox.GotFocus += onTextBoxGotFocus;
+					textBox.TextChanged += onTextBoxTextChanged;
+				}
+			} else {
+				if (control is TextBox) {
+					TextBox textBox = (TextBox) control;
+					textBox.GotFocus -= onTextBoxGotFocus;
+					textBox.TextChanged -= onTextBoxTextChanged;
+				}
+			}
+		}
+
+		public void SetAllChangeTracking (bool enabled) {
+			rows.ForEach (row => SetChangeTracking (row.Control, enabled));
 		}
 
 		private void onCellPaint (object obj, TableLayoutCellPaintEventArgs e) {
@@ -89,6 +105,40 @@ namespace AnyGameEngineEditor {
 			stickySelect = false;
 		}
 
+		private void onTextBoxGotFocus (object obj, EventArgs e) {
+			originalValue = ((TextBox) obj).Text;
+		}
+
+		private void onTextBoxTextChanged (object obj, EventArgs e) {
+			TableRow row = rows.Find (a => obj == a.Control);
+			string undoValue = (string) originalValue;
+			
+			MainForm.Instance.PushUndo (() => {
+				TextBox textBox = (TextBox) obj;
+				SetChangeTracking (textBox, false);
+				textBox.Text = undoValue;
+				row.ValueChangedAction ();
+				SetChangeTracking (textBox, true);
+				textBox.Focus ();
+				textBox.SelectionStart = undoValue.Length;
+			});
+
+			row.ValueChangedAction ();
+			originalValue = ((TextBox) obj).Text;
+		}
+
+		private void PrepareControl (Control control) {
+			control.Dock = DockStyle.Fill;
+			Padding margin = control.Margin;
+			margin.Right += 19;
+			control.Margin = margin;
+			control.MouseEnter += onCellMouseEnter;
+			control.MouseLeave += onCellMouseLeave;
+			control.GotFocus += onControlGotFocus;
+			control.LostFocus += onControlLostFocus;
+			MainForm.Error.SetIconPadding (control, 3);
+		}
+
 		private void ShowDescription () {
 			descriptionTextBox.Text = "";
 			Font font = descriptionTextBox.SelectionFont;
@@ -103,5 +153,6 @@ namespace AnyGameEngineEditor {
 		public Label Label;
 		public Control Control;
 		public string Description;
+		public Action ValueChangedAction;
 	}
 }

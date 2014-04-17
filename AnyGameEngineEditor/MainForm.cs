@@ -13,6 +13,7 @@ using AnyGameEngine.LogicItems;
 using AnyGameEngineEditor.MainSections.General;
 
 namespace AnyGameEngineEditor {
+
 	public partial class MainForm : Form {
 		private List <MainSection> mainSections = new List<MainSection> ();
 		private GeneralSection generalSection;
@@ -22,12 +23,20 @@ namespace AnyGameEngineEditor {
 			Instance = this;
 			Error = new ErrorProvider (this);
 			Error.BlinkStyle = ErrorBlinkStyle.NeverBlink;
-
+			
 			generalSection = new GeneralSection ();
 			generalSection.MoveToForm ();
 			mainSections.Add (generalSection);
 
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
+		}
+
+		protected override bool ProcessCmdKey (ref Message msg, Keys keyData) {
+			if (keyData == (Keys.Control | Keys.Z)) {
+				//return true;
+			}
+
+			return base.ProcessCmdKey (ref msg, keyData);
 		}
 
 		private void onOpenGameClick (object sender, EventArgs e) {
@@ -59,9 +68,22 @@ namespace AnyGameEngineEditor {
 			}
 		}
 
-		public static Form Instance;
+		public void PushUndo (Action action) {
+			undos.Push (action);
+		}
+
+		public void Undo () {
+			if (undos.Count > 0) {
+				Action action = undos.Pop ();
+				action ();
+				mainSections.ForEach (section => section.Refresh ());
+			}
+		}
+
+		public static MainForm Instance;
 		public static Game Game;
 		public static ErrorProvider Error;
+		private static Stack <Action> undos = new Stack <Action> ();
 	}
 
 }

@@ -11,16 +11,18 @@ namespace AnyGameEngineEditor.MainSections.General {
 		public GeneralSection () {
 			this.Title = "General";
 			this.SharedControls.Add (table);
-
-			table.AddRow ("Name", "The name of the game.", name);
-			table.AddRow ("Author", "The creator of the game.", author);
-			table.AddRow ("Description", "A short summary of the game.", description);
+			this.Form.Width = 500;
+			table.AddTextBoxRow ("Name", "The name of the game.", name, () => MainForm.Game.Name = name.Text);
+			table.AddTextBoxRow ("Author", "The creator of the game.", author, () => MainForm.Game.Author = author.Text);
+			//table.AddTextBoxRow ("Description", "A short summary of the game.", description);
 		}
 
 		public override void Refresh () {
+			table.SetAllChangeTracking (false);
 			name.Text = MainForm.Game.Name;
 			author.Text = MainForm.Game.Author;
 			description.Text = MainForm.Game.Description;
+			table.SetAllChangeTracking (true);
 		}
 	}
 }

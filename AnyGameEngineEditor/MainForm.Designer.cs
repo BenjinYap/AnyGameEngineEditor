@@ -58,14 +58,14 @@
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(167, 24);
 			this.newToolStripMenuItem.Text = "New";
 			// 
 			// openGameItem
 			// 
 			this.openGameItem.Name = "openGameItem";
 			this.openGameItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.openGameItem.Size = new System.Drawing.Size(175, 24);
+			this.openGameItem.Size = new System.Drawing.Size(167, 24);
 			this.openGameItem.Text = "Open";
 			this.openGameItem.Click += new System.EventHandler(this.onOpenGameClick);
 			// 
@@ -73,31 +73,31 @@
 			// 
 			this.saveGameItem.Name = "saveGameItem";
 			this.saveGameItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.saveGameItem.Size = new System.Drawing.Size(175, 24);
+			this.saveGameItem.Size = new System.Drawing.Size(167, 24);
 			this.saveGameItem.Text = "Save";
 			this.saveGameItem.Click += new System.EventHandler(this.onSaveGameClick);
 			// 
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(167, 24);
 			this.saveAsToolStripMenuItem.Text = "Save As";
 			// 
 			// exitItem
 			// 
 			this.exitItem.Name = "exitItem";
 			this.exitItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-			this.exitItem.Size = new System.Drawing.Size(175, 24);
+			this.exitItem.Size = new System.Drawing.Size(167, 24);
 			this.exitItem.Text = "Exit";
 			this.exitItem.Click += new System.EventHandler(this.onExitClick);
 			// 
-			// MainWindow
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(627, 324);
 			this.Controls.Add(this.mainMenuStrip);
-			this.Name = "MainWindow";
+			this.Name = "MainForm";
 			this.Text = "Form1";
 			this.mainMenuStrip.ResumeLayout(false);
 			this.mainMenuStrip.PerformLayout();
