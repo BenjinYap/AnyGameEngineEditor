@@ -24,9 +24,6 @@ namespace AnyGameEngineEditor {
 				canPushUndo = true;
 			};
 
-			textBox1.GotFocus += onTextBoxGotFocus;
-			textBox1.LostFocus += onTextBoxLostFocus;
-			textBox1.TextChanged += onTextBoxTextChanged;
 		}
 
 		private void onTextBoxGotFocus (object obj, EventArgs e) {

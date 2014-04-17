@@ -14,7 +14,7 @@ namespace AnyGameEngineEditor.MainSections.General {
 			this.Form.Width = 500;
 			table.AddTextBoxRow ("Name", "The name of the game.", name, () => MainForm.Game.Name = name.Text);
 			table.AddTextBoxRow ("Author", "The creator of the game.", author, () => MainForm.Game.Author = author.Text);
-			//table.AddTextBoxRow ("Description", "A short summary of the game.", description);
+			table.AddTextBoxRow ("Description", "A short summary of the game.", description, () => MainForm.Game.Description = description.Text);
 		}
 
 		public override void Refresh () {

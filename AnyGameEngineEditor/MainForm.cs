@@ -18,6 +18,8 @@ namespace AnyGameEngineEditor {
 		private List <MainSection> mainSections = new List<MainSection> ();
 		private GeneralSection generalSection;
 
+		private bool docked = false;
+
 		public MainForm () {
 			InitializeComponent ();
 			Instance = this;
@@ -28,7 +30,27 @@ namespace AnyGameEngineEditor {
 			generalSection.MoveToForm ();
 			mainSections.Add (generalSection);
 
+			mainSections.ForEach (section => {
+				Padding padding = section.Panel.Margin;
+				padding.Top += mainMenuStrip.Height;
+				//section.Panel.Padding = padding;
+			});
+
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
+			DockMainSection (generalSection);
+
+		}
+
+		public void PushUndo (Action action) {
+			undos.Push (action);
+		}
+
+		public void Undo () {
+			if (undos.Count > 0) {
+				Action action = undos.Pop ();
+				action ();
+				mainSections.ForEach (section => section.Refresh ());
+			}
 		}
 
 		protected override bool ProcessCmdKey (ref Message msg, Keys keyData) {
@@ -68,16 +90,9 @@ namespace AnyGameEngineEditor {
 			}
 		}
 
-		public void PushUndo (Action action) {
-			undos.Push (action);
-		}
-
-		public void Undo () {
-			if (undos.Count > 0) {
-				Action action = undos.Pop ();
-				action ();
-				mainSections.ForEach (section => section.Refresh ());
-			}
+		private void DockMainSection (MainSection section) {
+			section.MoveToPanel ();
+			table.Controls.Add (section.Panel);
 		}
 
 		public static MainForm Instance;
