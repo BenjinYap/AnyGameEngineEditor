@@ -39,9 +39,9 @@ namespace AnyGameEngineEditor {
 			generalSection.MoveToForm ();
 			mainSections.Add (generalSection);
 
-			generalSection2 = new GeneralSection ();
-			generalSection2.MoveToForm ();
-			mainSections.Add (generalSection2);
+			//generalSection2 = new GeneralSection ();
+			//generalSection2.MoveToForm ();
+			//mainSections.Add (generalSection2);
 
 			mainSections.ForEach (section => {
 				section.Form.FormDragStart += onSectionFormDragStart;
