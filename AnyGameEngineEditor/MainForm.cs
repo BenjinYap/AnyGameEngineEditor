@@ -21,6 +21,7 @@ namespace AnyGameEngineEditor {
 
 		private SectionForm draggingSectionForm;
 		private bool docked = false;
+		private DockContainer mainDockContainer = new DockContainer ();
 
 		private Panel [] dockPanels;
 		private Panel dockPanelTop = new Panel ();
@@ -47,18 +48,9 @@ namespace AnyGameEngineEditor {
 				section.Form.FormDragEnd += onSectionFormDragEnd;
 			});
 
-			dockPanels = new Panel [] {dockPanelTop, dockPanelBottom, dockPanelLeft, dockPanelRight};
-			
-			foreach (Panel panel in dockPanels) {
-				panel.BackColor = Color.FromArgb (128, Color.Red);
-				panel.Size = new Size (50, 50);
-				panel.Hide ();
-				this.Controls.Add (panel);
-				panel.BringToFront ();
-			}
-
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
 			//DockMainSection (generalSection);
+			table.Controls.Add (mainDockContainer);
 		}
 		
 		public void PushUndo (Action action) {
@@ -91,7 +83,7 @@ namespace AnyGameEngineEditor {
 		}
 
 		private void onSaveGameClick (object sender, EventArgs e) {
-
+			
 		}
 
 		private void onExitClick (object sender, EventArgs e) {
@@ -108,21 +100,25 @@ namespace AnyGameEngineEditor {
 			draggingSectionForm.Opacity = 1;
 			draggingSectionForm.LocationChanged -= onDraggingSectionFormLocationChanged;
 
-			if (docked == false) {
+			/*if (docked == false) {
 				if (this.ClientRectangle.Contains (this.PointToClient (Cursor.Position))) {
 					DockMainSection (mainSections.Find (section => section.Form == draggingSectionForm));
 				}
-			}
+			}*/
+			mainDockContainer.CheckDragEnd ();
 		}
 
 		private void onDraggingSectionFormLocationChanged (object obj, EventArgs e) {
-			if (docked == false) {
+			/*if (docked == false) {
 				if (this.ClientRectangle.Contains (this.PointToClient (Cursor.Position))) {
 					dockPanelTop.Location = new Point (table.Location.X, mainMenuStrip.Height);
 					dockPanelTop.Size = new Size (table.Width, table.Height - mainMenuStrip.Height);
 					dockPanelTop.Show ();
+				} else {
+					dockPanelTop.Hide ();
 				}
-			}
+			}*/
+			mainDockContainer.CheckDragPosition ();
 		}
 
 		private bool LoadGame (string path) {
@@ -151,9 +147,11 @@ namespace AnyGameEngineEditor {
 			}
 		}
 
+		public static Action awd = () => new Panel ().DoDragDrop (123, DragDropEffects.All);
 		public static MainForm Instance;
 		public static Game Game;
 		public static ErrorProvider Error;
+		public static MainSection DraggingSection;
 		private static Stack <Action> undos = new Stack <Action> ();
 	}
 

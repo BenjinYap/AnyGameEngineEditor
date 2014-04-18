@@ -6,12 +6,13 @@ namespace AnyGameEngineEditor {
 	public abstract class MainSection {
 		public SectionForm Form = new SectionForm ();
 		public Panel Panel = new Panel ();
+		public string Title = "";
+		
 		protected List <Control> SharedControls = new List<Control> ();
-
-		protected string Title = "";
 
 		public MainSection () {
 			Panel.Dock = DockStyle.Fill;
+			Form.Section = this;
 		}
 
 		public void MoveToForm () {

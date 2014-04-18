@@ -25,58 +25,51 @@
 		private void InitializeComponent () {
 			this.components = new System.ComponentModel.Container();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.label1 = new System.Windows.Forms.Label();
+			this.panel1 = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// errorProvider1
 			// 
 			this.errorProvider1.ContainerControl = this;
 			// 
-			// tableLayoutPanel1
+			// label1
 			// 
-			this.tableLayoutPanel1.ColumnCount = 1;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(742, 315);
-			this.tableLayoutPanel1.TabIndex = 0;
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(99, 147);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(46, 17);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "label1";
 			// 
-			// menuStrip1
+			// panel1
 			// 
-			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(742, 157);
-			this.menuStrip1.TabIndex = 0;
-			this.menuStrip1.Text = "menuStrip1";
+			this.panel1.BackColor = System.Drawing.Color.DimGray;
+			this.panel1.Location = new System.Drawing.Point(311, 112);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(200, 100);
+			this.panel1.TabIndex = 1;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(742, 315);
-			this.Controls.Add(this.tableLayoutPanel1);
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.label1);
 			this.Name = "Form1";
 			this.Text = "Form1";
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
 		private System.Windows.Forms.ErrorProvider errorProvider1;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Label label1;
 	}
 }

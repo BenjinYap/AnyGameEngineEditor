@@ -10,6 +10,7 @@ namespace AnyGameEngineEditor {
 	public class SectionForm:Form {
 		public event FormDragEventHandler FormDragStart;
 		public event FormDragEventHandler FormDragEnd;
+		public MainSection Section;
 
 		private bool dragStarted = false;
 		private bool dragEnded = true;
@@ -30,20 +31,7 @@ namespace AnyGameEngineEditor {
 			
 			return base.ProcessCmdKey (ref msg, keyData);
 		}
-		/*
-		protected override void WndProc (ref Message m) {
-			/*if (m.Msg == 0x0231) {
-				Debug.WriteLine ("START");
-				Debug.WriteLine (Cursor.Position);
-				Debug.WriteLine (this.Location);
-			} else if (m.Msg == 0x0232) {
-				Debug.WriteLine ("END");
-			}
-			
-
-			base.WndProc (ref m);
-		}
-	*/
+		
 		private void onResizeBegin (object obj, EventArgs e) {
 			formSize = this.Size;
 			this.LocationChanged += onLocationChanged;
@@ -56,12 +44,14 @@ namespace AnyGameEngineEditor {
 				dragStarted = false;
 				dragEnded = true;
 				FormDragEnd (this, EventArgs.Empty);
+				MainForm.DraggingSection = null;
 			}
 		}
 
 		private void onLocationChanged (object obj, EventArgs e) {
 			if (formSize == this.Size) {
 				if (dragStarted == false && FormDragStart != null) {
+					MainForm.DraggingSection = this.Section;
 					dragStarted = true;
 					dragEnded = false;
 					FormDragStart (this, EventArgs.Empty);
