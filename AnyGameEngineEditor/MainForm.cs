@@ -28,6 +28,8 @@ namespace AnyGameEngineEditor {
 		private Panel dockPanelBottom = new Panel ();
 		private Panel dockPanelLeft = new Panel ();
 		private Panel dockPanelRight = new Panel ();
+
+		private DockManager dockManager = new DockManager ();
 		
 		public MainForm () {
 			InitializeComponent ();
@@ -50,7 +52,9 @@ namespace AnyGameEngineEditor {
 
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
 			//DockMainSection (generalSection);
-			table.Controls.Add (mainDockContainer);
+			//table.Controls.Add (mainDockContainer);
+			dockManager.Dock = DockStyle.Fill;
+			table.Controls.Add (dockManager);
 		}
 		
 		public void PushUndo (Action action) {
@@ -91,21 +95,21 @@ namespace AnyGameEngineEditor {
 		}
 
 		private void onSectionFormDragStart (object obj, EventArgs e) {
-			draggingSectionForm = (SectionForm) obj;
-			draggingSectionForm.Opacity = 0.5;
-			draggingSectionForm.LocationChanged += onDraggingSectionFormLocationChanged;
+			//draggingSectionForm = (SectionForm) obj;
+			//draggingSectionForm.Opacity = 0.5;
+			//draggingSectionForm.LocationChanged += onDraggingSectionFormLocationChanged;
 		}
 
 		private void onSectionFormDragEnd (object obj, EventArgs e) {
-			draggingSectionForm.Opacity = 1;
-			draggingSectionForm.LocationChanged -= onDraggingSectionFormLocationChanged;
+			//draggingSectionForm.Opacity = 1;
+			//draggingSectionForm.LocationChanged -= onDraggingSectionFormLocationChanged;
 
 			/*if (docked == false) {
 				if (this.ClientRectangle.Contains (this.PointToClient (Cursor.Position))) {
 					DockMainSection (mainSections.Find (section => section.Form == draggingSectionForm));
 				}
 			}*/
-			mainDockContainer.CheckDragEnd ();
+			//mainDockContainer.CheckDragEnd ();
 		}
 
 		private void onDraggingSectionFormLocationChanged (object obj, EventArgs e) {
@@ -118,7 +122,7 @@ namespace AnyGameEngineEditor {
 					dockPanelTop.Hide ();
 				}
 			}*/
-			mainDockContainer.CheckDragPosition ();
+			//mainDockContainer.CheckDragPosition ();
 		}
 
 		private bool LoadGame (string path) {
