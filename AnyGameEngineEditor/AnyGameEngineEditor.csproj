@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AnyGameEngine">
-      <HintPath>..\..\AnyGameEngine\AnyGameEngine\bin\Debug\AnyGameEngine.dll</HintPath>
+      <HintPath>..\..\..\Bitbucket\AnyGameEngine\AnyGameEngine\bin\Debug\AnyGameEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
