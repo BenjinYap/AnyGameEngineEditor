@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace AnyGameEngineEditor {
 	public abstract class MainSection {
-		public SectionForm Form = new SectionForm ();
+		/*public SectionForm Form = new SectionForm ();
 		public Panel Panel = new Panel ();
 		public string Title = "";
 		
@@ -26,6 +26,6 @@ namespace AnyGameEngineEditor {
 			SharedControls.ForEach (control => Panel.Controls.Add (control));
 		}
 
-		public abstract void Refresh ();
+		public abstract void Refresh ();*/
 	}
 }

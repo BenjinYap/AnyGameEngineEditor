@@ -96,12 +96,12 @@ namespace AnyGameEngineEditor {
 
 		private void ProcessFlapDrop (Panel flap) {
 			if (flap == centerFlap) {
-				MainSection section = MainForm.DraggingSection;
+				/*MainSection section = MainForm.DraggingSection;
 				section.MoveToPanel ();
 				section.Form.Hide ();
 				TabPage tabPage = new TabPage (section.Title);
 				tabPage.Controls.Add (section.Panel);
-				tabs.TabPages.Add (tabPage);
+				tabs.TabPages.Add (tabPage);*/
 			}
 		}
 	}
