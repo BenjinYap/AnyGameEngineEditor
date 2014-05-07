@@ -12,7 +12,7 @@ using AnyGameEngine;
 using AnyGameEngine.LogicItems;
 using AnyGameEngineEditor.MainSections.General;
 using AnyGameEngineEditor.SectionForms.General;
-using CSharpControls;
+using CSharpControls.DockManager;
 
 namespace AnyGameEngineEditor {
 
@@ -20,6 +20,8 @@ namespace AnyGameEngineEditor {
 		private List <SectionForm> sectionForms = new List<SectionForm> ();
 		private GeneralForm generalForm;
 		private GeneralForm generalForm2;
+		private GeneralForm generalForm3;
+		private GeneralForm generalForm4;
 
 		private CSSDockManager dockManager = new CSSDockManager ();
 		
@@ -34,16 +36,25 @@ namespace AnyGameEngineEditor {
 			
 			generalForm = new GeneralForm ();
 			generalForm2 = new GeneralForm ();
-			generalForm.Show (this);
-			generalForm2.Show (this);
+			generalForm3 = new GeneralForm ();
+			generalForm4 = new GeneralForm ();
+			//sectionForms.AddRange (new SectionForm [] {generalForm, generalForm2, generalForm3, generalForm4});
+			//sectionForms.AddRange (new SectionForm [] {generalForm, generalForm2, generalForm3});
 			sectionForms.AddRange (new SectionForm [] {generalForm, generalForm2});
-			dockManager.RegisterDockableForm (generalForm);
-			dockManager.RegisterDockableForm (generalForm2);
+			//sectionForms.AddRange (new SectionForm [] {generalForm});
+			
+			for (int i = 0; i < sectionForms.Count; i++) {
+				dockManager.RegisterDockableForm ((i + 1).ToString (), sectionForms [i]);
+				sectionForms [i].Text = "Form " + (i + 1);
+				sectionForms [i].Show (this);
+			}
 			
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
-			dockManager.DockForm (null, generalForm, "AWD", CSSDockManager.DockDirection.Bottom);
-			dockManager.DockForm ("AWD", generalForm2, "DWA", CSSDockManager.DockDirection.Bottom);
-			//generalForm.Hide ();
+			
+			this.ResizeBegin += (s, e) => { this.SuspendLayout(); };
+			this.ResizeEnd += (s, e) => { this.ResumeLayout(true); };
+
+			//dockManager.LoadLayout ();
 		}
 		
 		public void PushUndo (Action action) {

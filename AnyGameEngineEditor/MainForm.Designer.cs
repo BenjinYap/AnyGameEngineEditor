@@ -42,7 +42,7 @@
             this.fileToolStripMenuItem});
 			this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.mainMenuStrip.Name = "mainMenuStrip";
-			this.mainMenuStrip.Size = new System.Drawing.Size(627, 30);
+			this.mainMenuStrip.Size = new System.Drawing.Size(771, 30);
 			this.mainMenuStrip.TabIndex = 1;
 			this.mainMenuStrip.Text = "menuStrip1";
 			// 
@@ -106,14 +106,14 @@
 			this.table.RowCount = 2;
 			this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.table.Size = new System.Drawing.Size(627, 324);
+			this.table.Size = new System.Drawing.Size(771, 507);
 			this.table.TabIndex = 2;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(627, 324);
+			this.ClientSize = new System.Drawing.Size(771, 507);
 			this.Controls.Add(this.table);
 			this.Name = "MainForm";
 			this.Text = "Form1";

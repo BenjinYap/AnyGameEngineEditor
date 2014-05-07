@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnyGameEngineEditor", "AnyGameEngineEditor\AnyGameEngineEditor.csproj", "{73AF2CD8-5EB8-42C4-9E55-6EF93A371E7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpControls", "..\CSharpControls\CSharpControls.csproj", "{44B58C3A-ACFC-49FF-87D9-8ED032FBD5D8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{73AF2CD8-5EB8-42C4-9E55-6EF93A371E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73AF2CD8-5EB8-42C4-9E55-6EF93A371E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73AF2CD8-5EB8-42C4-9E55-6EF93A371E7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44B58C3A-ACFC-49FF-87D9-8ED032FBD5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44B58C3A-ACFC-49FF-87D9-8ED032FBD5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44B58C3A-ACFC-49FF-87D9-8ED032FBD5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44B58C3A-ACFC-49FF-87D9-8ED032FBD5D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

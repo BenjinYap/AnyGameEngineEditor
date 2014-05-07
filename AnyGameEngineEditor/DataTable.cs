@@ -123,7 +123,7 @@ namespace AnyGameEngineEditor {
 				SetChangeTracking (textBox, true);
 				textBox.Focus ();
 				textBox.SelectionStart = undoValue.Length;
-			});Debug.WriteLine (stickySelect + " " + selectedRow);
+			});
 			
 			row.ValueChangedAction ();
 			MainForm.Instance.RefreshSections ();
