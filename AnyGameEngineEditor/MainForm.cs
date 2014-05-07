@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AnyGameEngine;
 using AnyGameEngine.LogicItems;
-using AnyGameEngineEditor.MainSections.General;
 using AnyGameEngineEditor.SectionForms.General;
 using CSharpControls.DockManager;
 
@@ -19,10 +18,7 @@ namespace AnyGameEngineEditor {
 	public partial class MainForm : Form {
 		private List <SectionForm> sectionForms = new List<SectionForm> ();
 		private GeneralForm generalForm;
-		private GeneralForm generalForm2;
-		private GeneralForm generalForm3;
-		private GeneralForm generalForm4;
-
+		
 		private CSSDockManager dockManager = new CSSDockManager ();
 		
 		public MainForm () {
@@ -35,18 +31,13 @@ namespace AnyGameEngineEditor {
 			table.Controls.Add (dockManager);
 			
 			generalForm = new GeneralForm ();
-			generalForm2 = new GeneralForm ();
-			generalForm3 = new GeneralForm ();
-			generalForm4 = new GeneralForm ();
-			//sectionForms.AddRange (new SectionForm [] {generalForm, generalForm2, generalForm3, generalForm4});
-			//sectionForms.AddRange (new SectionForm [] {generalForm, generalForm2, generalForm3});
-			sectionForms.AddRange (new SectionForm [] {generalForm, generalForm2});
-			//sectionForms.AddRange (new SectionForm [] {generalForm});
-			
+			sectionForms.AddRange (new SectionForm [] {generalForm});
+
 			for (int i = 0; i < sectionForms.Count; i++) {
 				dockManager.RegisterDockableForm ((i + 1).ToString (), sectionForms [i]);
 				sectionForms [i].Text = "Form " + (i + 1);
-				sectionForms [i].Show (this);
+				sectionForms [i].Owner = this;
+				//sectionForms [i].Show ();
 			}
 			
 			LoadGame (@"C:\Users\Benjin\Desktop\Bitbucket\AnyGameEngineEditor\AnyGameEngineEditor\bin\Debug\Games\Pokemon test\test.xml");
@@ -54,7 +45,9 @@ namespace AnyGameEngineEditor {
 			this.ResizeBegin += (s, e) => { this.SuspendLayout(); };
 			this.ResizeEnd += (s, e) => { this.ResumeLayout(true); };
 
-			//dockManager.LoadLayout ();
+			dockManager.LoadLayout ();
+
+			viewMenuGeneral.Click += onViewItemClick;
 		}
 		
 		public void PushUndo (Action action) {
@@ -88,6 +81,10 @@ namespace AnyGameEngineEditor {
 
 		private void onSaveGameClick (object sender, EventArgs e) {
 			
+		}
+
+		private void onViewItemClick (object sender, EventArgs e) {
+			sectionForms [viewMenu.DropDownItems.IndexOf ((ToolStripItem) sender)].Show ();
 		}
 
 		private void onExitClick (object sender, EventArgs e) {

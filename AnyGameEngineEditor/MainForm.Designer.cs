@@ -30,6 +30,8 @@
 			this.saveGameItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.viewMenu = new System.Windows.Forms.ToolStripMenuItem();
+			this.viewMenuGeneral = new System.Windows.Forms.ToolStripMenuItem();
 			this.table = new System.Windows.Forms.TableLayoutPanel();
 			this.mainMenuStrip.SuspendLayout();
 			this.table.SuspendLayout();
@@ -39,7 +41,8 @@
 			// 
 			this.mainMenuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.viewMenu});
 			this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.mainMenuStrip.Name = "mainMenuStrip";
 			this.mainMenuStrip.Size = new System.Drawing.Size(771, 30);
@@ -94,6 +97,20 @@
 			this.exitItem.Text = "Exit";
 			this.exitItem.Click += new System.EventHandler(this.onExitClick);
 			// 
+			// viewMenu
+			// 
+			this.viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewMenuGeneral});
+			this.viewMenu.Name = "viewMenu";
+			this.viewMenu.Size = new System.Drawing.Size(53, 26);
+			this.viewMenu.Text = "View";
+			// 
+			// viewMenuGeneral
+			// 
+			this.viewMenuGeneral.Name = "viewMenuGeneral";
+			this.viewMenuGeneral.Size = new System.Drawing.Size(175, 24);
+			this.viewMenuGeneral.Text = "General";
+			// 
 			// table
 			// 
 			this.table.ColumnCount = 1;
@@ -135,6 +152,8 @@
 		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem exitItem;
 		private System.Windows.Forms.TableLayoutPanel table;
+		private System.Windows.Forms.ToolStripMenuItem viewMenu;
+		private System.Windows.Forms.ToolStripMenuItem viewMenuGeneral;
 	}
 }
 
