@@ -84,7 +84,8 @@ namespace AnyGameEngineEditor {
 		}
 
 		private void onViewItemClick (object sender, EventArgs e) {
-			sectionForms [viewMenu.DropDownItems.IndexOf ((ToolStripItem) sender)].Show ();
+			SectionForm form = sectionForms [viewMenu.DropDownItems.IndexOf ((ToolStripItem) sender)];
+			form.Visible = !form.Visible;
 		}
 
 		private void onExitClick (object sender, EventArgs e) {

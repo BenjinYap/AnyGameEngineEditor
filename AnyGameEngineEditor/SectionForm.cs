@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpControls.DockManager;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 namespace AnyGameEngineEditor {
 	public delegate void FormDragEventHandler (object obj, EventArgs e);
 
-	public abstract class SectionForm:Form {
+	public abstract class SectionForm:CSSDockableForm {
 		
 		public abstract void RefreshContent ();
 

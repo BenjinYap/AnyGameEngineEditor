@@ -108,7 +108,8 @@
 			// viewMenuGeneral
 			// 
 			this.viewMenuGeneral.Name = "viewMenuGeneral";
-			this.viewMenuGeneral.Size = new System.Drawing.Size(175, 24);
+			this.viewMenuGeneral.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+			this.viewMenuGeneral.Size = new System.Drawing.Size(179, 24);
 			this.viewMenuGeneral.Text = "General";
 			// 
 			// table
