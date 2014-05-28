@@ -115,7 +115,7 @@ namespace AnyGameEngineEditor {
 			TableRow row = rows.Find (a => obj == a.Control);
 			string undoValue = (string) originalValue;
 			
-			MainForm.Instance.PushUndo (() => {
+			MainWindow.Instance.PushUndo (() => {
 				TextBox textBox = (TextBox) obj;
 				SetChangeTracking (textBox, false);
 				textBox.Text = undoValue;
@@ -126,7 +126,7 @@ namespace AnyGameEngineEditor {
 			});
 			
 			row.ValueChangedAction ();
-			MainForm.Instance.RefreshSections ();
+			MainWindow.Instance.RefreshSections ();
 			originalValue = ((TextBox) obj).Text;
 		}
 
@@ -139,7 +139,7 @@ namespace AnyGameEngineEditor {
 			control.MouseLeave += onCellMouseLeave;
 			control.GotFocus += onControlGotFocus;
 			control.LostFocus += onControlLostFocus;
-			MainForm.Error.SetIconPadding (control, 3);
+			MainWindow.Error.SetIconPadding (control, 3);
 		}
 
 		private void ShowDescription () {

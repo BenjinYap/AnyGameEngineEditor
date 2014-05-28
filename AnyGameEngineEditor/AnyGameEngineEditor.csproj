@@ -57,14 +57,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
-    <Compile Include="SectionForm.cs">
+    <Compile Include="SectionWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -72,14 +72,20 @@
     <Compile Include="DataTable.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SectionForms\General\GeneralForm.cs">
+    <Compile Include="SectionWindows\General\GeneralWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SectionWindows\SavedLogic\SavedLogicWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SectionWindows\Zones\ZonesWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
