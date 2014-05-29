@@ -51,6 +51,8 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 				node.Text = string.Format ("{0} ({1})", zone.ID, zone.Name);
 				tree.Nodes.Add (node);
 			});
+
+			tree.SelectedNode = tree.Nodes [1];
 		}
 
 		private void onZoneSelect (object obj, TreeViewEventArgs e) {

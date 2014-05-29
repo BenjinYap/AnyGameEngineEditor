@@ -35,12 +35,7 @@ namespace AnyGameEngineEditor {
 		}
 
 		public void AddTextBoxRow (string name, string description, TextBox textBox, Action valueChangedAction) {
-			Label label = new Label ();
-			label.Text = name;
-			label.Dock = DockStyle.Fill;
-			label.MouseEnter += onCellMouseEnter;
-			label.MouseLeave += onCellMouseLeave;
-			label.BackColor = Color.Transparent;
+			Label label = CreateLabel (name);
 
 			PrepareControl (textBox);
 			SetChangeTracking (textBox, true);
@@ -52,6 +47,23 @@ namespace AnyGameEngineEditor {
 			row.Label = label;
 			row.Description = description;
 			row.Control = textBox;
+			row.ValueChangedAction = valueChangedAction;
+			rows.Add (row);
+		}
+
+		public void AddComboBoxRow (string name, string description, ComboBox comboBox, Action valueChangedAction) {
+			Label label = CreateLabel (name);
+
+			PrepareControl (comboBox);
+			SetChangeTracking (comboBox, true);
+
+			table.Controls.Add (label);
+			table.Controls.Add (comboBox);
+
+			TableRow row = new TableRow ();
+			row.Label = label;
+			row.Description = description;
+			row.Control = comboBox;
 			row.ValueChangedAction = valueChangedAction;
 			rows.Add (row);
 		}
@@ -128,6 +140,16 @@ namespace AnyGameEngineEditor {
 			row.ValueChangedAction ();
 			MainWindow.Instance.RefreshSections ();
 			originalValue = ((TextBox) obj).Text;
+		}
+
+		private Label CreateLabel (string name) {
+			Label label = new Label ();
+			label.Text = name;
+			label.Dock = DockStyle.Fill;
+			label.MouseEnter += onCellMouseEnter;
+			label.MouseLeave += onCellMouseLeave;
+			label.BackColor = Color.Transparent;
+			return label;
 		}
 
 		private void PrepareControl (Control control) {

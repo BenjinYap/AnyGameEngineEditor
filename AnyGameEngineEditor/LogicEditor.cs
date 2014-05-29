@@ -1,5 +1,8 @@
 ﻿using AnyGameEngine;
 using AnyGameEngine.LogicItems;
+using AnyGameEngineEditor.EditLogicWindows;
+using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace AnyGameEngineEditor {
@@ -8,10 +11,30 @@ namespace AnyGameEngineEditor {
 
 		public LogicEditor (TreeView tree) {
 			this.tree = tree;
+			tree.NodeMouseDoubleClick += onNodeDoubleClick;
+			tree.KeyDown += onTreeKeyDown;
 		}
 
 		public void AddLogicToTree (LogicBase logic) {
 			CreateNode (null, logic);
+		}
+
+		private void onNodeDoubleClick (object obj, EventArgs e) {
+			EditNode (tree.SelectedNode);
+		}
+
+		private void onTreeKeyDown (object obj, KeyEventArgs e) {
+			if (tree.SelectedNode != null && e.KeyCode == Keys.Enter) {
+				EditNode (tree.SelectedNode);
+			}
+		}
+
+		private void EditNode (TreeNode node) {
+			LogicBase logic = (LogicBase) node.Tag;
+
+			if (logic is LogicStub) {
+				new LogicStubWindow ().ShowDialog (MainWindow.Instance);
+			}
 		}
 
 		private void CreateNode (TreeNode parentNode, LogicBase logic) {
