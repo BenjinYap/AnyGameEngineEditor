@@ -1,4 +1,5 @@
-﻿using CSharpControls;
+﻿using AnyGameEngine;
+using CSharpControls;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 			this.Controls.Add (mainSplit);
 
 			tree.Dock = DockStyle.Fill;
+			tree.AfterSelect += onZoneSelect;
 			mainSplit.Panel1.Controls.Add (tree);
 
 			zoneSplit.Dock = DockStyle.Fill;
@@ -33,7 +35,20 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 		}
 
 		public override void RefreshContent () {
-			
+			tree.Nodes.Clear ();
+
+			MainWindow.Game.Zones.ForEach (zone => {
+				TreeNode node = new TreeNode ();
+				node.Tag = zone;
+				node.Text = string.Format ("{0} ({1})", zone.ID, zone.Name);
+				tree.Nodes.Add (node);
+			});
+		}
+
+		private void onZoneSelect (object obj, TreeViewEventArgs e) {
+			Zone zone = (Zone) e.Node.Tag;
+			zoneID.Text = zone.ID;
+			zoneName.Text = zone.Name;
 		}
 	}
 }

@@ -114,15 +114,17 @@ namespace AnyGameEngineEditor {
 		private void onTextBoxTextChanged (object obj, EventArgs e) {
 			TableRow row = rows.Find (a => obj == a.Control);
 			string undoValue = (string) originalValue;
+			TextBox textBox = (TextBox) obj;
+			int caretPosition = textBox.SelectionStart;
 			
 			MainWindow.Instance.PushUndo (() => {
-				TextBox textBox = (TextBox) obj;
 				SetChangeTracking (textBox, false);
 				textBox.Text = undoValue;
 				row.ValueChangedAction ();
 				SetChangeTracking (textBox, true);
 				textBox.Focus ();
-				textBox.SelectionStart = undoValue.Length;
+				textBox.SelectionStart = (caretPosition == 0) ? 0 : caretPosition - 1;
+				originalValue = undoValue;
 			});
 			
 			row.ValueChangedAction ();
