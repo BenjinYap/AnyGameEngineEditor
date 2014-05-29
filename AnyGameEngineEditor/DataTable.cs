@@ -115,7 +115,6 @@ namespace AnyGameEngineEditor {
 			TableRow row = rows.Find (a => obj == a.Control);
 			string undoValue = (string) originalValue;
 			TextBox textBox = (TextBox) obj;
-			int caretPosition = textBox.SelectionStart;
 			
 			MainWindow.Instance.PushUndo (() => {
 				SetChangeTracking (textBox, false);
@@ -123,7 +122,6 @@ namespace AnyGameEngineEditor {
 				row.ValueChangedAction ();
 				SetChangeTracking (textBox, true);
 				textBox.Focus ();
-				textBox.SelectionStart = (caretPosition == 0) ? 0 : caretPosition - 1;
 				originalValue = undoValue;
 			});
 			
