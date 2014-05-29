@@ -13,6 +13,9 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 		private DataTable zoneTable = new DataTable ();
 		private TextBox zoneID = new TextBox ();
 		private TextBox zoneName = new TextBox ();
+		private TreeView zoneLogicTree = new TreeView ();
+
+		private LogicEditor logicEditor;
 
 		public ZonesWindow () {
 			this.Text = "Zones";
@@ -32,11 +35,16 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 			zoneTable.AddTextBoxRow ("ID", "A unique string to identify this zone.", zoneID, () => {});
 			zoneTable.AddTextBoxRow ("Name", "The name of this zone.", zoneName, () => {});
 			zoneSplit.Panel1.Controls.Add (zoneTable);
+
+			zoneLogicTree.Dock = DockStyle.Fill;
+			zoneSplit.Panel2.Controls.Add (zoneLogicTree);
+
+			logicEditor = new LogicEditor (zoneLogicTree);
 		}
 
 		public override void RefreshContent () {
 			tree.Nodes.Clear ();
-
+			
 			MainWindow.Game.Zones.ForEach (zone => {
 				TreeNode node = new TreeNode ();
 				node.Tag = zone;
@@ -47,8 +55,14 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 
 		private void onZoneSelect (object obj, TreeViewEventArgs e) {
 			Zone zone = (Zone) e.Node.Tag;
+
+			zoneTable.SetAllChangeTracking (false);
 			zoneID.Text = zone.ID;
 			zoneName.Text = zone.Name;
+			zoneTable.SetAllChangeTracking (true);
+
+			zoneLogicTree.Nodes.Clear ();
+			logicEditor.AddLogicToTree (zone.Logic);
 		}
 	}
 }
