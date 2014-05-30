@@ -19,7 +19,7 @@ namespace AnyGameEngineEditor {
 
 	public partial class MainWindow : Form {
 		private List <SectionWindow> sectionForms = new List<SectionWindow> ();
-		private GeneralWindow generalForm;
+		private GeneralWindow generalWindow;
 		private ZonesWindow zonesWindow;
 		private SavedLogicWindow savedLogicWindow;
 		
@@ -34,10 +34,10 @@ namespace AnyGameEngineEditor {
 			dockManager.Dock = DockStyle.Fill;
 			table.Controls.Add (dockManager);
 			
-			generalForm = new GeneralWindow ();
+			generalWindow = new GeneralWindow ();
 			zonesWindow = new ZonesWindow ();
 			savedLogicWindow = new SavedLogicWindow ();
-			sectionForms.AddRange (new SectionWindow [] {generalForm, zonesWindow, savedLogicWindow});
+			sectionForms.AddRange (new SectionWindow [] {generalWindow, zonesWindow, savedLogicWindow});
 
 			for (int i = 0; i < sectionForms.Count; i++) {
 				dockManager.RegisterDockableForm ((i + 1).ToString (), sectionForms [i]);
