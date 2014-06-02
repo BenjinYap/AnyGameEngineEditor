@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using AnyGameEngine;
+using AnyGameEngineEditor.EditPropertyWindows;
 
 namespace AnyGameEngineEditor.General {
 	public sealed class GeneralWindow:SectionWindow {
@@ -41,7 +42,12 @@ namespace AnyGameEngineEditor.General {
 		}
 
 		private void EditName () {
-			new EditPropertyWindow (EditPropertyType.Text, name, MainWindow.Game.Name).ShowDialog (MainWindow.Instance);
+			EditPropertyWindow window = new EditPropertyTextBoxWindow (name, MainWindow.Game.Name, null);
+			
+			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
+				MainWindow.Game.Name = window.Value;
+				grid.SetValue (name, MainWindow.Game.Name);
+			}
 		}
 
 		private void EditAuthor () {

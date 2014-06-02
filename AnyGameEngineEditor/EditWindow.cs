@@ -1,9 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace AnyGameEngineEditor {
 	public abstract class EditWindow:Form {
 		public Panel Panel = new Panel ();
-		protected Button confirm = new Button ();
+		private Button confirm = new Button ();
 		private Button cancel = new Button ();
 
 		public EditWindow () {
@@ -31,6 +32,14 @@ namespace AnyGameEngineEditor {
 			Panel.Width = this.ClientSize.Width;
 			Panel.Height = confirm.Top;
 			this.Controls.Add (Panel);
+		}
+
+		protected void EnableConfirm () {
+			confirm.Enabled = true;
+		}
+
+		protected void DisableConfirm () {
+			confirm.Enabled = false;
 		}
 	}
 }
