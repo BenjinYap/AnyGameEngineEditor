@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AnyGameEngineEditor.SectionWindows.Zones {
+namespace AnyGameEngineEditor.Zones {
 	public sealed class ZonesWindow:SectionWindow {
 		private SplitContainer mainSplit = new SplitContainer ();
 		private CSSTreeView tree = new CSSTreeView ();
@@ -16,6 +16,8 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 		private TreeView zoneLogicTree = new TreeView ();
 
 		private LogicEditor logicEditor;
+
+		private Zone currentZone;
 
 		public ZonesWindow () {
 			this.Text = "Zones";
@@ -32,8 +34,8 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 			zoneSplit.Orientation = Orientation.Horizontal;
 			mainSplit.Panel2.Controls.Add (zoneSplit);
 			
-			zoneTable.AddTextBoxRow ("ID", "A unique string to identify this zone.", zoneID, () => {});
-			zoneTable.AddTextBoxRow ("Name", "The name of this zone.", zoneName, () => {});
+			zoneTable.AddTextBoxRow ("ID", "A unique string to identify this zone.", zoneID, IDChanged);
+			zoneTable.AddTextBoxRow ("Name", "The name of this zone.", zoneName, NameChanged);
 			zoneSplit.Panel1.Controls.Add (zoneTable);
 
 			zoneLogicTree.Dock = DockStyle.Fill;
@@ -42,29 +44,44 @@ namespace AnyGameEngineEditor.SectionWindows.Zones {
 			logicEditor = new LogicEditor (zoneLogicTree);
 		}
 
-		public override void RefreshContent () {
+		public override void ForceUpdate () {
 			tree.Nodes.Clear ();
 			
-			MainWindow.Game.Zones.ForEach (zone => {
+			foreach (Zone zone in MainWindow.Game.Zones) {
 				TreeNode node = new TreeNode ();
 				node.Tag = zone;
-				node.Text = string.Format ("{0} ({1})", zone.ID, zone.Name);
+				node.Text = GetZoneNodeText (zone);
 				tree.Nodes.Add (node);
-			});
+			}
 
-			tree.SelectedNode = tree.Nodes [1];
+			tree.SelectedNode = tree.Nodes [0];
 		}
 
 		private void onZoneSelect (object obj, TreeViewEventArgs e) {
-			Zone zone = (Zone) e.Node.Tag;
+			currentZone = (Zone) e.Node.Tag;
 
 			zoneTable.SetAllChangeTracking (false);
-			zoneID.Text = zone.ID;
-			zoneName.Text = zone.Name;
+			zoneID.Text = currentZone.ID;
+			zoneName.Text = currentZone.Name;
 			zoneTable.SetAllChangeTracking (true);
 
 			zoneLogicTree.Nodes.Clear ();
-			logicEditor.AddLogicToTree (zone.Logic);
+			logicEditor.AddLogicToTree (currentZone.Logic);
+		}
+
+		private void IDChanged () {
+			currentZone.ID = zoneID.Text;
+			
+		}
+
+		private void NameChanged () {
+			currentZone.Name = zoneName.Text;
+			MainWindow.Game.Zones.ResetBindings ();
+			MainWindow.GeneralWindow.UpdateStartingZone ();
+		}
+
+		private string GetZoneNodeText (Zone zone) {
+			return string.Format ("{0} ({1})", zone.ID, zone.Name);
 		}
 	}
 }

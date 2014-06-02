@@ -47,7 +47,7 @@ namespace AnyGameEngineEditor {
 			row.Label = label;
 			row.Description = description;
 			row.Control = textBox;
-			row.ValueChangedAction = valueChangedAction;
+			row.ValueChangedCallback = valueChangedAction;
 			rows.Add (row);
 		}
 
@@ -64,7 +64,7 @@ namespace AnyGameEngineEditor {
 			row.Label = label;
 			row.Description = description;
 			row.Control = comboBox;
-			row.ValueChangedAction = valueChangedAction;
+			row.ValueChangedCallback = valueChangedAction;
 			rows.Add (row);
 		}
 
@@ -131,14 +131,14 @@ namespace AnyGameEngineEditor {
 			MainWindow.Instance.PushUndo (() => {
 				SetChangeTracking (textBox, false);
 				textBox.Text = undoValue;
-				row.ValueChangedAction ();
+				row.ValueChangedCallback ();
 				SetChangeTracking (textBox, true);
 				textBox.Focus ();
 				originalValue = undoValue;
 			});
 			
-			row.ValueChangedAction ();
-			MainWindow.Instance.RefreshSections ();
+			row.ValueChangedCallback ();
+			//MainWindow.Instance.RefreshSections ();
 			originalValue = ((TextBox) obj).Text;
 		}
 
@@ -178,6 +178,6 @@ namespace AnyGameEngineEditor {
 		public Label Label;
 		public Control Control;
 		public string Description;
-		public Action ValueChangedAction;
+		public Action ValueChangedCallback;
 	}
 }

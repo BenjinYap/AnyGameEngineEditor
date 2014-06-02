@@ -10,7 +10,7 @@ namespace AnyGameEngineEditor {
 
 	public abstract class SectionWindow:CSSDockableForm {
 		
-		public abstract void RefreshContent ();
+		public abstract void ForceUpdate ();
 
 		protected override bool ProcessCmdKey (ref Message msg, Keys keyData) {
 			if (keyData == (Keys.Control | Keys.Z)) {

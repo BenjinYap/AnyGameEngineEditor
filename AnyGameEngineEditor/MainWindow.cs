@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AnyGameEngine;
 using AnyGameEngine.LogicItems;
-using AnyGameEngineEditor.SectionWindows.General;
+using AnyGameEngineEditor.General;
 using CSharpControls.DockManager;
-using AnyGameEngineEditor.SectionWindows.Zones;
-using AnyGameEngineEditor.SectionWindows.SavedLogic;
+using AnyGameEngineEditor.Zones;
+using AnyGameEngineEditor.SavedLogic;
 
 namespace AnyGameEngineEditor {
 
@@ -35,8 +35,11 @@ namespace AnyGameEngineEditor {
 			table.Controls.Add (dockManager);
 			
 			generalWindow = new GeneralWindow ();
+			GeneralWindow = generalWindow;
 			zonesWindow = new ZonesWindow ();
+			ZonesWindow = zonesWindow;
 			savedLogicWindow = new SavedLogicWindow ();
+			SavedLogicWindow = savedLogicWindow;
 			sectionForms.AddRange (new SectionWindow [] {generalWindow, zonesWindow, savedLogicWindow});
 
 			for (int i = 0; i < sectionForms.Count; i++) {
@@ -63,12 +66,12 @@ namespace AnyGameEngineEditor {
 			if (undos.Count > 0) {
 				Action action = undos.Pop ();
 				action ();
-				RefreshSections ();
+				//RefreshSections ();
 			}
 		}
 
 		public void RefreshSections () {
-			sectionForms.ForEach (form => form.RefreshContent ());
+			sectionForms.ForEach (form => form.ForceUpdate ());
 		}
 
 		protected override bool ProcessCmdKey (ref Message msg, Keys keyData) {
@@ -109,8 +112,14 @@ namespace AnyGameEngineEditor {
 		}
 
 		public static MainWindow Instance;
+		public static GeneralWindow GeneralWindow;
+		public static ZonesWindow ZonesWindow;
+		public static SavedLogicWindow SavedLogicWindow;
+
 		public static Game Game;
+
 		public static ErrorProvider Error;
+
 		private static Stack <Action> undos = new Stack <Action> ();
 	}
 

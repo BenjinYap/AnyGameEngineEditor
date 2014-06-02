@@ -3,7 +3,7 @@ using System.Diagnostics;
 using AnyGameEngine;
 using AnyGameEngine.LogicItems;
 
-namespace AnyGameEngineEditor.SectionWindows.SavedLogic {
+namespace AnyGameEngineEditor.SavedLogic {
 	public sealed class SavedLogicWindow:SectionWindow {
 		private TreeView tree = new TreeView ();
 
@@ -18,7 +18,7 @@ namespace AnyGameEngineEditor.SectionWindows.SavedLogic {
 			logicEditor = new LogicEditor (tree);
 		}
 
-		public override void RefreshContent () {
+		public override void ForceUpdate () {
 			tree.Nodes.Clear ();
 
 			MainWindow.Game.SavedLogic.ForEach (logic => {
