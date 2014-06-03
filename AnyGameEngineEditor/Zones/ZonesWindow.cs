@@ -76,7 +76,7 @@ namespace AnyGameEngineEditor.Zones {
 
 		private void NameChanged () {
 			currentZone.Name = zoneName.Text;
-			MainWindow.Game.Zones.ResetBindings ();
+			//MainWindow.Game.Zones.ResetBindings ();
 			MainWindow.GeneralWindow.UpdateStartingZone ();
 		}
 

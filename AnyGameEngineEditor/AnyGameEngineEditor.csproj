@@ -60,6 +60,9 @@
     <Compile Include="EditPropertyWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EditPropertyWindows\EditPropertyComboBoxWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EditPropertyWindows\EditPropertyTextBoxWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -24,6 +24,7 @@ namespace AnyGameEngineEditor {
 			grid.AllowUserToDeleteRows = false;
 			grid.CellDoubleClick += onCellDoubleClick;
 			grid.CurrentCellChanged += onCurrentCellChanged;
+			grid.KeyDown += onKeyDown;
 			this.Panel1.Controls.Add (grid);
 
 			description.Dock = DockStyle.Fill;
@@ -51,6 +52,18 @@ namespace AnyGameEngineEditor {
 			foreach (KeyValuePair <string, Action> pair in keys) {
 				if ((string) grid.Rows [e.RowIndex].Cells [0].Value == pair.Key) {
 					pair.Value ();
+				}
+			}
+		}
+
+		private void onKeyDown (object obj, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Enter) {
+				Action action;
+
+				if (keys.TryGetValue ((string) grid.CurrentRow.Cells [0].Value, out action)) {
+					action ();
+					grid.Focus ();
+					e.Handled = true;
 				}
 			}
 		}
