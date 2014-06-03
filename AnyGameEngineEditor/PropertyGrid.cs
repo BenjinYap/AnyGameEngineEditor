@@ -29,6 +29,8 @@ namespace AnyGameEngineEditor {
 
 			description.Dock = DockStyle.Fill;
 			this.Panel2.Controls.Add (description);
+
+			this.Disposed += onDisposed;
 		}
 
 		public void AddRow (string name, string description, Action editCallback) {
@@ -42,6 +44,12 @@ namespace AnyGameEngineEditor {
 
 		public void SetValue (string name, string value) {
 			GetRow (name).Cells [1].Value = value;
+		}
+
+		private void onDisposed (object obj, EventArgs e) {
+			grid.CellDoubleClick -= onCellDoubleClick;
+			grid.CurrentCellChanged -= onCurrentCellChanged;
+			grid.KeyDown -= onKeyDown;
 		}
 
 		private void onCellDoubleClick (object obj, DataGridViewCellEventArgs e) {

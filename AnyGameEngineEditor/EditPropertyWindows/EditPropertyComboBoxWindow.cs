@@ -25,7 +25,19 @@ namespace AnyGameEngineEditor.EditPropertyWindows {
 
 			this.Panel.Controls.Add (box);
 			
-			this.Shown += (a, b) => box.Focus ();
+			this.Shown += onShown;
+			this.FormClosed += onFormClosed;
+		}
+
+		private void onShown (object obj, EventArgs e) {
+			box.Focus ();
+		}
+
+		private void onFormClosed (object obj, EventArgs e) {
+			this.Shown -= onShown;
+			this.FormClosed -= onFormClosed;
+			box.TextChanged -= onTextChanged;
+			box.SelectedIndexChanged -= onSelectedIndexChanged;
 		}
 
 		private void onSelectedIndexChanged (object obj, EventArgs e) {
