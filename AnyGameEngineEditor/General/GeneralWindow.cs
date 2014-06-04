@@ -32,10 +32,14 @@ namespace AnyGameEngineEditor.General {
 		}
 
 		public override void ForceUpdate () {
-			grid.SetValue (name, MainWindow.Game.Name);
-			grid.SetValue (author, MainWindow.Game.Author);
-			grid.SetValue (description, MainWindow.Game.Description);
-			grid.SetValue (startingZone, Helper.GetZoneText (MainWindow.Game.StartingZone));
+			//grid.SetValue (name, MainWindow.Game.Name);
+			//grid.SetValue (author, MainWindow.Game.Author);
+			//grid.SetValue (description, MainWindow.Game.Description);
+			//grid.SetValue (startingZone, Helper.GetZoneText (MainWindow.Game.StartingZone));
+			SetName (MainWindow.Game.Name);
+			SetAuthor (MainWindow.Game.Author);
+			SetDescription (MainWindow.Game.Description);
+			SetStartingZone (MainWindow.Game.StartingZone);
 			//startingZoneID.DataSource = MainWindow.Game.Zones;
 		}
 
@@ -47,36 +51,60 @@ namespace AnyGameEngineEditor.General {
 			EditPropertyWindow window = new EditPropertyTextBoxWindow (name, MainWindow.Game.Name, null);
 			
 			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
-				MainWindow.Game.Name = (string) window.Value;
-				grid.SetValue (name, MainWindow.Game.Name);
+				string before = MainWindow.Game.Name;
+				MainWindow.Instance.PushUndo (() => SetName (before));
+				SetName ((string) window.Value);
 			}
+		}
+
+		private void SetName (string value) {
+			MainWindow.Game.Name = value;
+			grid.SetValue (name, value);
 		}
 
 		private void EditAuthor () {
 			EditPropertyWindow window = new EditPropertyTextBoxWindow (author, MainWindow.Game.Author, null);
 			
 			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
-				MainWindow.Game.Author = (string) window.Value;
-				grid.SetValue (author, MainWindow.Game.Author);
+				string before = MainWindow.Game.Author;
+				MainWindow.Instance.PushUndo (() => SetAuthor (before));
+				SetAuthor ((string) window.Value);
 			}
+		}
+
+		private void SetAuthor (string value) {
+			MainWindow.Game.Author = value;
+			grid.SetValue (author, value);
 		}
 
 		private void EditDescription () {
 			EditPropertyWindow window = new EditPropertyTextBoxWindow (name, MainWindow.Game.Description, null);
 			
 			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
-				MainWindow.Game.Description = (string) window.Value;
-				grid.SetValue (description, MainWindow.Game.Description);
+				string before = MainWindow.Game.Description;
+				MainWindow.Instance.PushUndo (() => SetDescription (before));
+				SetDescription ((string) window.Value);
 			}
+		}
+
+		private void SetDescription (string value) {
+			MainWindow.Game.Description = value;
+			grid.SetValue (description, value);
 		}
 
 		private void EditStartingZone () {
 			EditPropertyWindow window = new EditPropertyComboBoxWindow (startingZone, MainWindow.Game.Zones.ToArray (), MainWindow.Game.StartingZone, false);
 			
 			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
-				MainWindow.Game.StartingZone = (Zone) window.Value;
-				grid.SetValue (startingZone, window.Value.ToString ());
+				Zone before = MainWindow.Game.StartingZone;
+				MainWindow.Instance.PushUndo (() => SetStartingZone (before));
+				SetStartingZone ((Zone) window.Value);
 			}
+		}
+
+		private void SetStartingZone (Zone value) {
+			MainWindow.Game.StartingZone = value;
+			grid.SetValue (startingZone, value.ToString ());
 		}
 
 		private const string name = "Name";

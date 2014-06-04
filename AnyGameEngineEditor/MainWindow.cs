@@ -63,6 +63,7 @@ namespace AnyGameEngineEditor {
 		}
 
 		public void Undo () {
+			
 			if (undos.Count > 0) {
 				Action action = undos.Pop ();
 				action ();
