@@ -20,22 +20,13 @@ namespace AnyGameEngineEditor.General {
 			grid.AddRow (description, "A summary of the game.", EditDescription);
 			grid.AddRow (startingZone, "The starting zone of the game.", EditStartingZone);
 
-			//this.Controls.Add (table);
-			//table.AddTextBoxRow ("Name", "The name of the game.", name, () => MainWindow.Game.Name = name.Text);
-			//table.AddTextBoxRow ("Author", "The creator of the game.", author, () => MainWindow.Game.Author = author.Text);
-			//table.AddTextBoxRow ("Description", "A short summary of the game.", description, () => MainWindow.Game.Description = description.Text);
 			//startingZoneID.AutoCompleteSource = AutoCompleteSource.ListItems;
 			//startingZoneID.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			//startingZoneID.DisplayMember = "Name";
 			//startingZoneID.ValueMember = "ID";
-			//table.AddComboBoxRow ("Starting Zone ID", "The ID of the starting zone.", startingZoneID, () => {});
 		}
 
 		public override void ForceUpdate () {
-			//grid.SetValue (name, MainWindow.Game.Name);
-			//grid.SetValue (author, MainWindow.Game.Author);
-			//grid.SetValue (description, MainWindow.Game.Description);
-			//grid.SetValue (startingZone, Helper.GetZoneText (MainWindow.Game.StartingZone));
 			SetName (MainWindow.Game.Name);
 			SetAuthor (MainWindow.Game.Author);
 			SetDescription (MainWindow.Game.Description);
@@ -44,7 +35,7 @@ namespace AnyGameEngineEditor.General {
 		}
 
 		public void UpdateStartingZone () {
-			//startingZoneID.SelectedIndex = 1;
+			SetStartingZone (MainWindow.Game.StartingZone);
 		}
 
 		private void EditName () {

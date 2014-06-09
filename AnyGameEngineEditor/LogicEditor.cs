@@ -40,7 +40,7 @@ namespace AnyGameEngineEditor {
 		private void CreateNode (TreeNode parentNode, LogicBase logic) {
 			TreeNode node = new TreeNode ();
 			string text = "";
-
+			
 			if (logic is LogicStub) {
 				LogicStub stub = (LogicStub) logic;
 				text = string.Format ("{0}{1}({2})", stub.ID, ((stub.ID.Length > 0) ? " " : ""), logic.GetType ().Name);
