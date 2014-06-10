@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
 
 namespace AnyGameEngineEditor.EditLogicWindows {
-	public sealed class LogicStubWindow:EditLogicWindow {
+	public sealed class LogicReferenceWindow:EditLogicWindow {
 		
-		public LogicStubWindow () {
+		public LogicReferenceWindow () {
 			this.Text = "Edit Logic Stub";
 
 			
