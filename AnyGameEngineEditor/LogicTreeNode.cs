@@ -30,6 +30,8 @@ namespace AnyGameEngineEditor {
 					this.Nodes.Add (new LogicTreeNode (l));
 				}
 			}
+
+			this.ExpandAll ();
 		}
 	}
 }

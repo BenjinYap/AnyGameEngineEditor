@@ -8,15 +8,24 @@ using System.Windows.Forms;
 namespace AnyGameEngineEditor {
 	public sealed class LogicEditor {
 		private TreeView tree;
+		private bool cancelExpand = false;
+		private DateTime lastTime = DateTime.Now;
 
 		public LogicEditor (TreeView tree) {
 			this.tree = tree;
 			tree.NodeMouseDoubleClick += onNodeDoubleClick;
 			tree.KeyDown += onTreeKeyDown;
+			tree.MouseDown += onMouseDown;
+			tree.BeforeExpand += onBeforeExpandCollapse;
+			tree.BeforeCollapse += onBeforeExpandCollapse;
 		}
 
 		public void AddLogicToTree (LogicBase logic) {
 			CreateNode (null, logic);
+
+			if (tree.Nodes.Count == 1) {
+				tree.SelectedNode = tree.Nodes [0];
+			}
 		}
 
 		private void onNodeDoubleClick (object obj, EventArgs e) {
@@ -27,6 +36,17 @@ namespace AnyGameEngineEditor {
 			if (tree.SelectedNode != null && e.KeyCode == Keys.Enter) {
 				EditNode ((LogicTreeNode) tree.SelectedNode);
 			}
+		}
+
+		private void onBeforeExpandCollapse (object obj, TreeViewCancelEventArgs e) {
+			e.Cancel = cancelExpand;
+			cancelExpand = false;
+		}
+		
+		private void onMouseDown (object obj, MouseEventArgs e) {
+			int delta = (int) DateTime.Now.Subtract (lastTime).TotalMilliseconds;
+			cancelExpand = delta < SystemInformation.DoubleClickTime;
+			lastTime = DateTime.Now;
 		}
 
 		private void EditNode (LogicTreeNode node) {
@@ -40,14 +60,6 @@ namespace AnyGameEngineEditor {
 		private void CreateNode (TreeNode parentNode, LogicBase logic) {
 			LogicTreeNode node = new LogicTreeNode (logic);
 			
-			//if (logic is LogicList) {
-			//	LogicList list = (LogicList) logic;
-
-			//	list.Logics.ForEach (foo => CreateNode (node, foo));
-			//}
-
-			node.ExpandAll ();
-
 			if (parentNode == null) {
 				tree.Nodes.Add (node);
 			} else {
