@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace AnyGameEngineEditor.EditPropertyWindows {
@@ -7,12 +8,14 @@ namespace AnyGameEngineEditor.EditPropertyWindows {
 		private ComboBox box = new ComboBox ();
 
 		public EditPropertyComboBoxWindow (string name, object [] items, object value, bool autoComplete):base (name, null) {
+			this.SetMinimumClientSize (0, box.Height);
+			this.MaximumSize = new Size (1000, this.MinimumSize.Height);
+
 			box.Items.AddRange (items);
 			box.SelectedItem = value;
 			this.Value = value;
 			box.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-			box.Left = EditPropertyWindow.LabelWidth;
-			box.Width = this.ClientSize.Width - EditPropertyWindow.LabelWidth - 19;
+			box.Width = this.ClientSize.Width - 19;
 			
 			if (autoComplete) {
 				box.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -23,7 +26,7 @@ namespace AnyGameEngineEditor.EditPropertyWindows {
 				box.SelectedIndexChanged += onSelectedIndexChanged;
 			}
 
-			this.Panel.Controls.Add (box);
+			this.Controls.Add (box);
 			
 			this.Shown += onShown;
 			this.FormClosed += onFormClosed;

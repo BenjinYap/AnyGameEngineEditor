@@ -11,7 +11,6 @@ namespace AnyGameEngineEditor {
 
 		public PropertyGrid () {
 			this.Orientation = System.Windows.Forms.Orientation.Horizontal;
-
 			grid.Dock = DockStyle.Fill;
 			grid.RowHeadersVisible = false;
 			grid.ColumnCount = 2;

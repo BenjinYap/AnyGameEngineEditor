@@ -1,45 +1,49 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace AnyGameEngineEditor {
 	public abstract class EditWindow:Form {
-		public Panel Panel = new Panel ();
-		private Button confirm = new Button ();
-		private Button cancel = new Button ();
+		protected Button Confirm = new Button ();
+		protected Button Cancel = new Button ();
 
 		public EditWindow () {
-			//this.AutoSize = true;
-			//this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			Confirm.Text = "Confirm";
+			Confirm.DialogResult = System.Windows.Forms.DialogResult.OK;
+			Confirm.Anchor = AnchorStyles.Bottom;
+			Confirm.Top = this.ClientSize.Height - Confirm.Height;
+			Confirm.Left = this.ClientSize.Width / 2 - Confirm.Width;
+			this.Controls.Add (Confirm);
+			
+			Cancel.Text = "Cancel";
+			Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			Cancel.Anchor = AnchorStyles.Bottom;
+			Cancel.Top = Confirm.Top;
+			Cancel.Left = Confirm.Left + Confirm.Width;
+			this.Controls.Add (Cancel);
 
-			confirm.Text = "Confirm";
-			confirm.DialogResult = System.Windows.Forms.DialogResult.OK;
-			confirm.Anchor = AnchorStyles.Bottom;
-			confirm.Top = this.ClientSize.Height - confirm.Height;
-			confirm.Left = this.ClientSize.Width / 2 - confirm.Width;
-			this.Controls.Add (confirm);
+			this.AcceptButton = Confirm;
+			this.CancelButton = Cancel;
 
-			cancel.Text = "Cancel";
-			cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			cancel.Anchor = AnchorStyles.Bottom;
-			cancel.Top = confirm.Top;
-			cancel.Left = confirm.Left + confirm.Width;
-			this.Controls.Add (cancel);
+			SetMinimumClientSize (0, 0);
+		}
 
-			this.AcceptButton = confirm;
-			this.CancelButton = cancel;
+		public void SetMinimumClientSize (int width, int height) {
+			this.MinimumSize = new Size (width + Confirm.Width + Cancel.Width + this.Width - this.ClientSize.Width, height + Confirm.Height + this.Height - this.ClientSize.Height);
+		}
 
-			Panel.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-			Panel.Width = this.ClientSize.Width;
-			Panel.Height = confirm.Top;
-			this.Controls.Add (Panel);
+		public void SetSize (int width, int height) {
+			this.Size = new Size (width + Confirm.Width + Cancel.Width + this.Width - this.ClientSize.Width, height + Confirm.Height + this.Height - this.ClientSize.Height);
 		}
 
 		protected void EnableConfirm () {
-			confirm.Enabled = true;
+			Confirm.Enabled = true;
 		}
 
 		protected void DisableConfirm () {
-			confirm.Enabled = false;
+			Confirm.Enabled = false;
 		}
+
+		
 	}
 }

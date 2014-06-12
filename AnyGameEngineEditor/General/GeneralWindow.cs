@@ -55,7 +55,8 @@ namespace AnyGameEngineEditor.General {
 
 		private void EditAuthor () {
 			EditPropertyWindow window = new EditPropertyTextBoxWindow (author, MainWindow.Game.Author, null);
-			
+			window.SetSize (200, 0);
+
 			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
 				string before = MainWindow.Game.Author;
 				MainWindow.Instance.PushUndo (() => SetAuthor (before));
@@ -69,8 +70,9 @@ namespace AnyGameEngineEditor.General {
 		}
 
 		private void EditDescription () {
-			EditPropertyWindow window = new EditPropertyTextBoxWindow (name, MainWindow.Game.Description, null);
-			
+			EditPropertyWindow window = new EditPropertyTextBoxWindow (description, MainWindow.Game.Description, null);
+			window.SetSize (200, 200);
+
 			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
 				string before = MainWindow.Game.Description;
 				MainWindow.Instance.PushUndo (() => SetDescription (before));

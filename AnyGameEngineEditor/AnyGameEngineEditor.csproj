@@ -54,7 +54,10 @@
     <Compile Include="EditLogicWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditLogicWindows\LogicStubWindow.cs">
+    <Compile Include="EditLogicWindows\EditLogicTextWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditLogicWindows\LogicReferenceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditPropertyWindow.cs">

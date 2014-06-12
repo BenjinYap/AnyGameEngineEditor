@@ -3,6 +3,7 @@ using AnyGameEngine.LogicItems;
 using AnyGameEngineEditor.EditLogicWindows;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace AnyGameEngineEditor {
@@ -49,14 +50,6 @@ namespace AnyGameEngineEditor {
 			lastTime = DateTime.Now;
 		}
 
-		private void EditNode (LogicTreeNode node) {
-			LogicBase logic = (LogicBase) node.Logic;
-
-			if (logic is LogicReference) {
-				new LogicReferenceWindow ().ShowDialog (MainWindow.Instance);
-			}
-		}
-
 		private void CreateNode (TreeNode parentNode, LogicBase logic) {
 			LogicTreeNode node = new LogicTreeNode (logic);
 			
@@ -65,6 +58,33 @@ namespace AnyGameEngineEditor {
 			} else {
 				parentNode.Nodes.Add (node);
 			}
+		}
+
+		private void EditNode (LogicTreeNode node) {
+			LogicBase logic = (LogicBase) node.Logic;
+			
+			if (logic is LogicReference) {
+				//new LogicReferenceWindow ().ShowDialog (MainWindow.Instance);
+				
+			} else if (logic is LogicText) {
+				LogicText logicText = (LogicText) logic;
+				EditLogicTextWindow window = new EditLogicTextWindow (logicText);
+
+				if (window.ShowDialog (MainWindow.Instance) == DialogResult.OK) {
+					string before = logicText.Text;
+					MainWindow.Instance.PushUndo (() => {
+						node.Edited = false;
+						logicText.Text = before;
+					});
+					node.Edited = true;
+					logicText.Text = window.TextValue;
+				}
+			}
+		}
+
+		private void EditedNode (LogicTreeNode node) {
+			node.Edited = true;
+			node.ForeColor = Color.Purple;
 		}
 	}
 }

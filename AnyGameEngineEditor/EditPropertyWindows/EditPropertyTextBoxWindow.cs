@@ -7,14 +7,18 @@ namespace AnyGameEngineEditor.EditPropertyWindows {
 		private TextBox box = new TextBox ();
 
 		public EditPropertyTextBoxWindow (string name, string value, ValueValidator validator):base (name, validator) {
+			this.SetMinimumClientSize (0, box.Height);
+
 			this.Value = value;
 			box.Text = value;
-			box.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-			box.Left = EditPropertyWindow.LabelWidth;
-			box.Width = this.ClientSize.Width - EditPropertyWindow.LabelWidth - 19;
+			box.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
+			box.Width = this.ClientSize.Width - 19;
+			box.Height = this.Confirm.Location.Y;
+			box.Multiline = true;
+			box.ScrollBars = ScrollBars.Vertical;
+			box.KeyDown += onKeyDown;
 			box.TextChanged += onTextChanged;
-			
-			this.Panel.Controls.Add (box);
+			this.Controls.Add (box);
 			
 			this.Shown += onShown;
 			this.FormClosed += onFormClosed;
@@ -27,7 +31,14 @@ namespace AnyGameEngineEditor.EditPropertyWindows {
 		private void onFormClosed (object obj, EventArgs e) {
 			this.Shown -= onShown;
 			this.FormClosed -= onFormClosed;
+			box.KeyDown -= onKeyDown;
 			box.TextChanged -= onTextChanged;
+		}
+		
+		private void onKeyDown (object obj, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Enter) {
+				e.SuppressKeyPress = true;
+			}
 		}
 
 		private void onTextChanged (object obj, EventArgs e) {
