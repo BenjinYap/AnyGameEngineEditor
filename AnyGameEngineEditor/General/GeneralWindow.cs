@@ -34,7 +34,7 @@ namespace AnyGameEngineEditor.General {
 			//startingZoneID.DataSource = MainWindow.Game.Zones;
 		}
 
-		public void UpdateStartingZone () {
+		public void UpdatedStartingZone () {
 			SetStartingZone (MainWindow.Game.StartingZone);
 		}
 

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="EditLogicWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +79,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogicEditor.cs" />
+    <Compile Include="LogicEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LogicEditorGridHandler.cs" />
+    <Compile Include="LogicEditorGridHandlers\LogicListGridHandler.cs" />
+    <Compile Include="LogicEditorGridHandlers\LogicReferenceGridHandler.cs" />
+    <Compile Include="LogicEditorGridHandlers\LogicTextGridHandler.cs" />
     <Compile Include="LogicTreeNode.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -89,6 +96,11 @@
     <Compile Include="Helper.cs" />
     <Compile Include="PropertyGrid.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="SectionWindow.cs">
       <SubType>Form</SubType>
@@ -122,6 +134,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

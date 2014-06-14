@@ -15,9 +15,8 @@ namespace AnyGameEngineEditor.Zones {
 		private DataTable zoneTable = new DataTable ();
 		private TextBox zoneID = new TextBox ();
 		private TextBox zoneName = new TextBox ();
-		private TreeView zoneLogicTree = new TreeView ();
 
-		private LogicEditor logicEditor;
+		private LogicEditor logicEditor = new LogicEditor ();
 
 		private Zone currentZone;
 
@@ -28,26 +27,20 @@ namespace AnyGameEngineEditor.Zones {
 			mainSplit.TabStop = false;
 			this.Controls.Add (mainSplit);
 
-			tree.Dock = DockStyle.Fill;
-			tree.AfterSelect += onZoneSelect;
-			mainSplit.Panel1.Controls.Add (tree);
-
 			zoneSplit.Dock = DockStyle.Fill;
 			zoneSplit.Orientation = Orientation.Horizontal;
-			mainSplit.Panel2.Controls.Add (zoneSplit);
+			mainSplit.Panel1.Controls.Add (zoneSplit);
+
+			tree.Dock = DockStyle.Fill;
+			tree.AfterSelect += onZoneSelect;
+			zoneSplit.Panel1.Controls.Add (tree);
 			
-			//zoneTable.AddTextBoxRow ("ID", "A unique string to identify this zone.", zoneID, IDChanged);
-			//zoneTable.AddTextBoxRow ("Name", "The name of this zone.", zoneName, NameChanged);
-			//zoneSplit.Panel1.Controls.Add (zoneTable);
 			zoneGrid.Dock = DockStyle.Fill;
-			zoneSplit.Panel1.Controls.Add (zoneGrid);
 			zoneGrid.AddRow (id, "A unique behind-the-scenes name for this zone.", EditID);
 			zoneGrid.AddRow (name, "The actual name for this zone.", EditName);
+			zoneSplit.Panel2.Controls.Add (zoneGrid);
 
-			zoneLogicTree.Dock = DockStyle.Fill;
-			zoneSplit.Panel2.Controls.Add (zoneLogicTree);
-
-			logicEditor = new LogicEditor (zoneLogicTree);
+			mainSplit.Panel2.Controls.Add (logicEditor);
 		}
 
 		public override void ForceUpdate () {
@@ -63,13 +56,17 @@ namespace AnyGameEngineEditor.Zones {
 			tree.SelectedNode = tree.Nodes [0];
 		}
 
+		public void UpdatedLogic (LogicBase logic) {
+			logicEditor.UpdatedLogic (logic);
+		}
+
 		private void onZoneSelect (object obj, TreeViewEventArgs e) {
 			currentZone = (Zone) e.Node.Tag;
 
 			SetID (currentZone.ID);
 			SetName (currentZone.Name);
 
-			zoneLogicTree.Nodes.Clear ();
+			logicEditor.Clear ();
 			logicEditor.AddLogicToTree (currentZone.Logic);
 		}
 
@@ -81,7 +78,7 @@ namespace AnyGameEngineEditor.Zones {
 		private void NameChanged () {
 			currentZone.Name = zoneName.Text;
 			//MainWindow.Game.Zones.ResetBindings ();
-			MainWindow.GeneralWindow.UpdateStartingZone ();
+			MainWindow.GeneralWindow.UpdatedStartingZone ();
 		}
 
 		private string GetZoneNodeText (Zone zone) {
@@ -101,7 +98,7 @@ namespace AnyGameEngineEditor.Zones {
 		private void SetID (string value) {
 			currentZone.ID = value;
 			zoneGrid.SetValue (id, value);
-			MainWindow.GeneralWindow.UpdateStartingZone ();
+			MainWindow.GeneralWindow.UpdatedStartingZone ();
 		}
 
 		private void EditName () {
@@ -117,7 +114,7 @@ namespace AnyGameEngineEditor.Zones {
 		private void SetName (string value) {
 			currentZone.Name = value;
 			zoneGrid.SetValue (name, value);
-			MainWindow.GeneralWindow.UpdateStartingZone ();
+			MainWindow.GeneralWindow.UpdatedStartingZone ();
 		}
 
 		private const string id = "ID";

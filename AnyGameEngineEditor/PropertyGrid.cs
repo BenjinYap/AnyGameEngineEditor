@@ -9,6 +9,7 @@ namespace AnyGameEngineEditor {
 		private List <Row> rows = new List<Row> ();
 
 		public PropertyGrid () {
+			this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.Dock = DockStyle.Fill;
 			this.RowHeadersVisible = false;
 			this.ColumnCount = 2;
@@ -32,6 +33,11 @@ namespace AnyGameEngineEditor {
 			//this.Rows [this.Rows.Count - 1].Cells [0].Style.WrapMode = DataGridViewTriState.True;
 			//this.Rows [this.Rows.Count - 1].Cells [1].ToolTipText = description;
 			//this.Rows [this.Rows.Count - 1].Cells [1].Style.WrapMode = DataGridViewTriState.True;
+		}
+
+		public void ClearRows () {
+			rows.Clear ();
+			this.Rows.Clear ();
 		}
 
 		public void SetValue (string name, string value) {

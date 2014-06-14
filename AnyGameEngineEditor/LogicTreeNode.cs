@@ -22,24 +22,7 @@ namespace AnyGameEngineEditor {
 			Edited = false;
 			Logic = logic;
 
-			if (logic is LogicReference) {
-				LogicReference reference = (LogicReference) logic;
-				this.Text = string.Format ("{0}{1}({2})", reference.Logic.ID, ((reference.Logic.ID.Length > 0) ? " " : ""), logic.GetType ().Name);
-				logic = reference.Logic;
-			} else {
-				LogicItem item = (LogicItem) logic;
-				this.Text = string.Format ("{0}{1}({2})", item.ID, ((item.ID.Length > 0) ? " " : ""), logic.GetType ().Name);
-
-				if (logic is LogicList) {
-					LogicList list = (LogicList) logic;
-
-					foreach (LogicBase l in list.Logics) {
-						this.Nodes.Add (new LogicTreeNode (l));
-					}
-				}
-
-				this.ExpandAll ();
-			}
+			
 		}
 	}
 }
