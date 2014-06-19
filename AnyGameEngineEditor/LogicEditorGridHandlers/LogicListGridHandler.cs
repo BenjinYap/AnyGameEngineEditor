@@ -1,5 +1,6 @@
 ﻿using AnyGameEngine;
 using AnyGameEngine.LogicItems;
+using AnyGameEngineEditor.EditPropertyWindows;
 
 namespace AnyGameEngineEditor.LogicEditorGridHandlers {
 	public sealed class LogicListGridHandler:LogicEditorGridHandler {
@@ -8,24 +9,28 @@ namespace AnyGameEngineEditor.LogicEditorGridHandlers {
 			base.PopulateGrid (logic);
 			LogicList foo = (LogicList) logic;
 
-			//if (foo.ID.Length > 0) {
-			//	this.Grid.AddRow (Constants.ID, Constants.IDLogicDescription, null);
-			//	this.Grid.SetValue (Constants.ID, foo.ID);
-			//}
-
-			//this.Grid.AddRow (Constants.Text, Constants.TextLogicTextDescription, null);
-			//this.Grid.SetValue (Constants.Text, foo.Text);
+			if (foo.ID.Length > 0) {
+				this.Grid.AddRow (Constants.ID, Constants.IDLogicDescription, EditID);
+				this.Grid.SetValue (Constants.ID, foo.ID);
+			}
 		}
 
-		//private void EditText () {
-		//	LogicText logic = (LogicText) ((LogicTreeNode) tree.SelectedNode).Logic;
-		//	EditPropertyWindow window = new EditPropertyTextBoxWindow (Constants.Text, logic.Text, null);
+		private void EditID () {
+			LogicItem foo = (LogicItem) this.Logic;
+			EditPropertyWindow window = new EditPropertyTextBoxWindow (Constants.ID, foo.ID, null);
 			
-		//	if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
-		//		string before = logic.Text;
-		//		//MainWindow.Instance.PushUndo (() => SetName (before));
-		//		//SetName ((string) window.Value);
-		//	}
-		//}
+			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
+				string before = foo.ID;
+				MainWindow.Instance.PushUndo (() => SetID (before));
+				SetID ((string) window.Value);
+			}
+		}
+
+		private void SetID (string value) {
+			((LogicItem) this.Logic).ID = value;
+			this.Grid.SetValue (Constants.ID, value);
+			MainWindow.SavedLogicWindow.UpdatedLogic (this.Logic);
+			MainWindow.ZonesWindow.UpdatedLogic (this.Logic);
+		}
 	}
 }

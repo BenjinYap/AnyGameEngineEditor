@@ -1,6 +1,5 @@
 ﻿using AnyGameEngine;
 using AnyGameEngine.LogicItems;
-using AnyGameEngineEditor.EditLogicWindows;
 using CSharpControls;
 using System;
 using System.Diagnostics;
@@ -91,20 +90,13 @@ namespace AnyGameEngineEditor {
 			}
 
 			logicNodeReferences [logic].Add (node);
+			node.Text = GetNodeName (logic);
 
-			if (logic is LogicReference) {
-				LogicReference reference = (LogicReference) logic;
-				node.Text = string.Format ("{0}{1}({2})", reference.Logic.ID, ((reference.Logic.ID.Length > 0) ? " " : ""), logic.GetType ().Name);
-			} else {
-				LogicItem item = (LogicItem) logic;
-				node.Text = string.Format ("{0}{1}({2})", item.ID, ((item.ID.Length > 0) ? " " : ""), logic.GetType ().Name);
+			if (logic is LogicList) {
+				LogicList list = (LogicList) logic;
 
-				if (logic is LogicList) {
-					LogicList list = (LogicList) logic;
-
-					foreach (LogicBase l in list.Logics) {
-						CreateNode (node, l);
-					}
+				foreach (LogicBase l in list.Logics) {
+					CreateNode (node, l);
 				}
 
 				node.ExpandAll ();
@@ -115,8 +107,6 @@ namespace AnyGameEngineEditor {
 			} else {
 				parentNode.Nodes.Add (node);
 			}
-
-			
 		}
 	}
 }

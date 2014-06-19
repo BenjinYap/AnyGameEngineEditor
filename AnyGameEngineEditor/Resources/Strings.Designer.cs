@@ -88,6 +88,24 @@ namespace AnyGameEngineEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logic.
+        /// </summary>
+        internal static string logic {
+            get {
+                return ResourceManager.GetString("logic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The ID of the logic..
+        /// </summary>
+        internal static string logicDescription {
+            get {
+                return ResourceManager.GetString("logicDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text.
         /// </summary>
         internal static string text {

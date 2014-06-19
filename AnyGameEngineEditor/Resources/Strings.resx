@@ -126,6 +126,12 @@
   <data name="idZoneDescription" xml:space="preserve">
     <value>A unique behind-the-scenes name for this zone.</value>
   </data>
+  <data name="logic" xml:space="preserve">
+    <value>Logic</value>
+  </data>
+  <data name="logicDescription" xml:space="preserve">
+    <value>The ID of the logic.</value>
+  </data>
   <data name="text" xml:space="preserve">
     <value>Text</value>
   </data>

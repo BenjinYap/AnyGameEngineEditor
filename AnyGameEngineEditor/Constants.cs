@@ -7,6 +7,9 @@ namespace AnyGameEngineEditor {
 		public static string Text {get {return res.GetString ("text");}}
 		public static string TextLogicTextDescription {get {return res.GetString ("textLogicTextDescription");}}
 
+		public static string Logic {get {return res.GetString ("logic");}}
+		public static string LogicDescription {get {return res.GetString ("logicDescription");}}
+
 		private static ResourceManager res = new ResourceManager ("AnyGameEngineEditor.Resources.Strings", typeof (MainWindow).Assembly);
 	}
 }

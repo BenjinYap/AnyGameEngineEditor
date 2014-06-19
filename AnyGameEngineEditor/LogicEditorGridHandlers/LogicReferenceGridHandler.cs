@@ -1,5 +1,6 @@
 ﻿using AnyGameEngine;
 using AnyGameEngine.LogicItems;
+using AnyGameEngineEditor.EditPropertyWindows;
 
 namespace AnyGameEngineEditor.LogicEditorGridHandlers {
 	public sealed class LogicReferenceGridHandler:LogicEditorGridHandler {
@@ -7,25 +8,26 @@ namespace AnyGameEngineEditor.LogicEditorGridHandlers {
 		public override void PopulateGrid (LogicBase logic) {
 			base.PopulateGrid (logic);
 			LogicReference foo = (LogicReference) logic;
-
-			//if (foo.ID.Length > 0) {
-			//	this.Grid.AddRow (Constants.ID, Constants.IDLogicDescription, null);
-			//	this.Grid.SetValue (Constants.ID, foo.ID);
-			//}
-
-			//this.Grid.AddRow (Constants.Text, Constants.TextLogicTextDescription, null);
-			//this.Grid.SetValue (Constants.Text, foo.Text);
+			this.Grid.AddRow (Constants.Logic, Constants.LogicDescription, EditLogic);
+			SetLogic (foo.Logic);
 		}
 
-		//private void EditText () {
-		//	LogicText logic = (LogicText) ((LogicTreeNode) tree.SelectedNode).Logic;
-		//	EditPropertyWindow window = new EditPropertyTextBoxWindow (Constants.Text, logic.Text, null);
+		private void EditLogic () {
+			LogicReference foo = (LogicReference) this.Logic;
+			EditPropertyWindow window = new EditPropertyComboBoxWindow (foo.Logic.ToString (), MainWindow.Game.SavedLogic.ToArray (), foo.Logic, false);
 			
-		//	if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
-		//		string before = logic.Text;
-		//		//MainWindow.Instance.PushUndo (() => SetName (before));
-		//		//SetName ((string) window.Value);
-		//	}
-		//}
+			if (window.ShowDialog (MainWindow.Instance) == System.Windows.Forms.DialogResult.OK) {
+				LogicItem before = foo.Logic;
+				MainWindow.Instance.PushUndo (() => SetLogic (before));
+				SetLogic ((LogicItem) window.Value);
+			}
+		}
+
+		private void SetLogic (LogicItem value) {
+			((LogicReference) this.Logic).Logic = value;
+			this.Grid.SetValue (Constants.Logic, value.ToString ());
+			MainWindow.SavedLogicWindow.UpdatedLogic (this.Logic);
+			MainWindow.ZonesWindow.UpdatedLogic (this.Logic);
+		}
 	}
 }
