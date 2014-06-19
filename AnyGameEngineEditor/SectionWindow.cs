@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 
@@ -11,6 +12,8 @@ namespace AnyGameEngineEditor {
 	public abstract class SectionWindow:CSSDockableForm {
 		
 		public abstract void ForceUpdate ();
+		//public abstract void LoadIDE ();
+		public abstract void SaveIDE (StringBuilder sb);
 
 		protected override bool ProcessCmdKey (ref Message msg, Keys keyData) {
 			if (keyData == (Keys.Control | Keys.Z)) {

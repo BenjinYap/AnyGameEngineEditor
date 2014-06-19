@@ -3,6 +3,7 @@ using AnyGameEngineEditor.EditPropertyWindows;
 using CSharpControls;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace AnyGameEngineEditor.Zones {
@@ -58,6 +59,10 @@ namespace AnyGameEngineEditor.Zones {
 
 		public void UpdatedLogic (LogicBase logic) {
 			logicEditor.UpdatedLogic (logic);
+		}
+
+		public override void SaveIDE (StringBuilder sb) {
+			throw new System.NotImplementedException ();
 		}
 
 		private void onZoneSelect (object obj, TreeViewEventArgs e) {

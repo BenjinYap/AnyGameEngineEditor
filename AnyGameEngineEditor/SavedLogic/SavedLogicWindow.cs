@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using AnyGameEngine;
 using AnyGameEngine.LogicItems;
+using System.Text;
 
 namespace AnyGameEngineEditor.SavedLogic {
 	public sealed class SavedLogicWindow:SectionWindow {
@@ -21,6 +22,10 @@ namespace AnyGameEngineEditor.SavedLogic {
 
 		public void UpdatedLogic (LogicBase logic) {
 			logicEditor.UpdatedLogic (logic);
+		}
+
+		public override void SaveIDE (StringBuilder sb) {
+			throw new System.NotImplementedException ();
 		}
 	}
 }

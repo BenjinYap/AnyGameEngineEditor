@@ -14,6 +14,7 @@ using AnyGameEngineEditor.General;
 using CSharpControls.DockManager;
 using AnyGameEngineEditor.Zones;
 using AnyGameEngineEditor.SavedLogic;
+using System.IO;
 
 namespace AnyGameEngineEditor {
 
@@ -56,6 +57,17 @@ namespace AnyGameEngineEditor {
 			dockManager.LoadLayout ();
 
 			viewMenuGeneral.Click += onViewItemClick;
+		}
+
+		public void LoadIDE () {
+
+		}
+
+		public void SaveIDE () {
+			StringBuilder sb = new StringBuilder ();
+
+			Debug.WriteLine (sb.ToString ());
+			//File.WriteAllText ("ide.txt", sb.ToString ());
 		}
 		
 		public void PushUndo (Action action) {

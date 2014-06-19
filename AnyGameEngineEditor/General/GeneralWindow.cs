@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using AnyGameEngine;
 using AnyGameEngineEditor.EditPropertyWindows;
+using System.Text;
 
 namespace AnyGameEngineEditor.General {
 	public sealed class GeneralWindow:SectionWindow {
@@ -36,6 +37,10 @@ namespace AnyGameEngineEditor.General {
 
 		public void UpdatedStartingZone () {
 			SetStartingZone (MainWindow.Game.StartingZone);
+		}
+
+		public override void SaveIDE (StringBuilder sb) {
+			throw new System.NotImplementedException ();
 		}
 
 		private void EditName () {
