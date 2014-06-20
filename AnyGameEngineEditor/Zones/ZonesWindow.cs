@@ -1,6 +1,8 @@
 ﻿using AnyGameEngine;
 using AnyGameEngineEditor.EditPropertyWindows;
 using CSharpControls;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
@@ -61,8 +63,40 @@ namespace AnyGameEngineEditor.Zones {
 			logicEditor.UpdatedLogic (logic);
 		}
 
+		public override void EngageLayoutTracking () {
+			mainSplit.SplitterMoved += onSplitterMoved;
+			zoneSplit.SplitterMoved += onSplitterMoved;
+			logicEditor.SplitterMoved += onSplitterMoved;
+		}
+
+		public override void DisengageLayoutTracking () {
+			mainSplit.SplitterMoved -= onSplitterMoved;
+			zoneSplit.SplitterMoved -= onSplitterMoved;
+			logicEditor.SplitterMoved -= onSplitterMoved;
+		}
+
+		public override void LoadIDE (Dictionary<string, string> pairs) {
+			if (pairs.ContainsKey ("zonesMainSplit")) {
+				mainSplit.SplitterDistance = int.Parse (pairs ["zonesMainSplit"]);
+			}
+
+			if (pairs.ContainsKey ("zonesZoneSplit")) {
+				zoneSplit.SplitterDistance = int.Parse (pairs ["zonesZoneSplit"]);
+			}
+
+			if (pairs.ContainsKey ("zonesLogicEditorSplit")) {
+				logicEditor.SplitterDistance = int.Parse (pairs ["zonesLogicEditorSplit"]);
+			}
+		}
+
 		public override void SaveIDE (StringBuilder sb) {
-			throw new System.NotImplementedException ();
+			sb.AppendLine ("zonesMainSplit=" + mainSplit.SplitterDistance);
+			sb.AppendLine ("zonesZoneSplit=" + zoneSplit.SplitterDistance);
+			sb.AppendLine ("zonesLogicEditorSplit=" + logicEditor.SplitterDistance);
+		}
+		
+		private void onSplitterMoved (object obj, EventArgs e) {
+			MainWindow.Instance.SaveIDE ();
 		}
 
 		private void onZoneSelect (object obj, TreeViewEventArgs e) {

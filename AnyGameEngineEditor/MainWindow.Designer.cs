@@ -33,6 +33,8 @@
 			this.viewMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuGeneral = new System.Windows.Forms.ToolStripMenuItem();
 			this.table = new System.Windows.Forms.TableLayoutPanel();
+			this.zonesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.savedLogicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuStrip.SuspendLayout();
 			this.table.SuspendLayout();
 			this.SuspendLayout();
@@ -100,7 +102,9 @@
 			// viewMenu
 			// 
 			this.viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewMenuGeneral});
+            this.viewMenuGeneral,
+            this.zonesToolStripMenuItem,
+            this.savedLogicToolStripMenuItem});
 			this.viewMenu.Name = "viewMenu";
 			this.viewMenu.Size = new System.Drawing.Size(53, 26);
 			this.viewMenu.Text = "View";
@@ -109,7 +113,7 @@
 			// 
 			this.viewMenuGeneral.Name = "viewMenuGeneral";
 			this.viewMenuGeneral.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-			this.viewMenuGeneral.Size = new System.Drawing.Size(179, 24);
+			this.viewMenuGeneral.Size = new System.Drawing.Size(208, 24);
 			this.viewMenuGeneral.Text = "General";
 			// 
 			// table
@@ -126,6 +130,20 @@
 			this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.table.Size = new System.Drawing.Size(1133, 653);
 			this.table.TabIndex = 2;
+			// 
+			// zonesToolStripMenuItem
+			// 
+			this.zonesToolStripMenuItem.Name = "zonesToolStripMenuItem";
+			this.zonesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+			this.zonesToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+			this.zonesToolStripMenuItem.Text = "Zones";
+			// 
+			// savedLogicToolStripMenuItem
+			// 
+			this.savedLogicToolStripMenuItem.Name = "savedLogicToolStripMenuItem";
+			this.savedLogicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+			this.savedLogicToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+			this.savedLogicToolStripMenuItem.Text = "Saved Logic";
 			// 
 			// MainWindow
 			// 
@@ -155,6 +173,8 @@
 		private System.Windows.Forms.TableLayoutPanel table;
 		private System.Windows.Forms.ToolStripMenuItem viewMenu;
 		private System.Windows.Forms.ToolStripMenuItem viewMenuGeneral;
+		private System.Windows.Forms.ToolStripMenuItem zonesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem savedLogicToolStripMenuItem;
 	}
 }
 

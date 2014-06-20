@@ -55,19 +55,34 @@ namespace AnyGameEngineEditor {
 			this.ResizeEnd += (s, e) => { this.ResumeLayout(true); };
 
 			dockManager.LoadLayout ();
+			
+			foreach (ToolStripItem item in viewMenu.DropDownItems) {
+				item.Click += onViewItemClick;
+			}
 
-			viewMenuGeneral.Click += onViewItemClick;
+			this.Paint += onWindowReady;
 		}
 
 		public void LoadIDE () {
+			if (File.Exists ("ide.txt") == false) {
+				return;
+			}
+			
+			string [] lines = File.ReadAllLines ("ide.txt");
+			Dictionary <string, string> pairs = new Dictionary<string,string> ();
 
+			for (int i = 0; i < lines.Length; i++) {
+				string [] pair = lines [i].Split ('=');
+				pairs.Add (pair [0], pair [1]);
+			}
+
+			sectionForms.ForEach (form => form.LoadIDE (pairs));
 		}
 
 		public void SaveIDE () {
 			StringBuilder sb = new StringBuilder ();
-
-			Debug.WriteLine (sb.ToString ());
-			//File.WriteAllText ("ide.txt", sb.ToString ());
+			sectionForms.ForEach (form => form.SaveIDE (sb));
+			File.WriteAllText ("ide.txt", sb.ToString ());
 		}
 		
 		public void PushUndo (Action action) {
@@ -94,6 +109,12 @@ namespace AnyGameEngineEditor {
 			}
 
 			return base.ProcessCmdKey (ref msg, keyData);
+		}
+
+		private void onWindowReady (object obj, EventArgs e) {
+			this.Paint -= onWindowReady;
+			LoadIDE ();
+			sectionForms.ForEach (form => form.EngageLayoutTracking ());
 		}
 
 		private void onOpenGameClick (object sender, EventArgs e) {

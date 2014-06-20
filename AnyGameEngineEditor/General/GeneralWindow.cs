@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AnyGameEngine;
 using AnyGameEngineEditor.EditPropertyWindows;
 using System.Text;
+using System;
 
 namespace AnyGameEngineEditor.General {
 	public sealed class GeneralWindow:SectionWindow {
@@ -25,8 +26,10 @@ namespace AnyGameEngineEditor.General {
 			//startingZoneID.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			//startingZoneID.DisplayMember = "Name";
 			//startingZoneID.ValueMember = "ID";
-		}
 
+			
+		}
+		
 		public override void ForceUpdate () {
 			SetName (MainWindow.Game.Name);
 			SetAuthor (MainWindow.Game.Author);
@@ -39,8 +42,26 @@ namespace AnyGameEngineEditor.General {
 			SetStartingZone (MainWindow.Game.StartingZone);
 		}
 
+		public override void EngageLayoutTracking () {
+			grid.ColumnWidthChanged += onColumnWidthChanged;
+		}
+
+		public override void DisengageLayoutTracking () {
+			grid.ColumnWidthChanged -= onColumnWidthChanged;
+		}
+
+		public override void LoadIDE (Dictionary<string, string> pairs) {
+			if (pairs.ContainsKey ("generalColumn")) {
+				grid.Columns [0].Width = int.Parse (pairs ["generalColumn"]);
+			}
+		}
+
 		public override void SaveIDE (StringBuilder sb) {
-			throw new System.NotImplementedException ();
+			sb.AppendLine ("generalColumn=" + grid.Columns [0].Width);
+		}
+
+		private void onColumnWidthChanged (object obj, EventArgs e) {
+			MainWindow.Instance.SaveIDE ();
 		}
 
 		private void EditName () {

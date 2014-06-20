@@ -3,6 +3,8 @@ using System.Diagnostics;
 using AnyGameEngine;
 using AnyGameEngine.LogicItems;
 using System.Text;
+using System.Collections.Generic;
+using System;
 
 namespace AnyGameEngineEditor.SavedLogic {
 	public sealed class SavedLogicWindow:SectionWindow {
@@ -24,8 +26,26 @@ namespace AnyGameEngineEditor.SavedLogic {
 			logicEditor.UpdatedLogic (logic);
 		}
 
+		public override void EngageLayoutTracking () {
+			logicEditor.SplitterMoved += onSplitterMoved;
+		}
+
+		public override void DisengageLayoutTracking () {
+			logicEditor.SplitterMoved -= onSplitterMoved;
+		}
+
+		public override void LoadIDE (Dictionary<string, string> pairs) {
+			if (pairs.ContainsKey ("savedLogicLogicEditorSplit")) {
+				logicEditor.SplitterDistance = int.Parse (pairs ["savedLogicLogicEditorSplit"]);
+			}
+		}
+
 		public override void SaveIDE (StringBuilder sb) {
-			throw new System.NotImplementedException ();
+			sb.AppendLine ("savedLogicLogicEditorSplit=" + logicEditor.SplitterDistance);
+		}
+
+		private void onSplitterMoved (object obj, EventArgs e) {
+			MainWindow.Instance.SaveIDE ();
 		}
 	}
 }
